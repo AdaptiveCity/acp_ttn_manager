@@ -1,5 +1,5 @@
 # Adaptive City Program TTN Manager
-
+(More testing needed)
 ACP TTN Manager provides means to manage TTN application and devices. It supports the following functionalities;
 1. Get details of the TTN Application
 2. Get details of all the registered devices on any application
