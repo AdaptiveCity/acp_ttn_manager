@@ -15,8 +15,8 @@ Ensure that both the default and the application from which devices are being mi
 You would need Python 3 for running.
 
 ```
-git clone repo-link
-cd acp_web
+git clone https://github.com/AdaptiveCity/acp_ttn_manager.git
+cd acp_ttn_manager
 python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install pip --upgrade
