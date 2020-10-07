@@ -41,8 +41,10 @@ MIGRATION_APP_KEY = ""
 Import the ACPTTNManager class and use the following class methods for the required functionalities
 
 1. `get_app_details()`: Return the TTN Application object
-2. `get_all_devices(client)`: Return all devices registered on the specified client application. Use client=None for default.
-3. `get_device_details(device_id, client)`: Return the device object corresponding to 'device_id' on the specified client application. Use client=None for default.
+2. `get_all_devices(client)`: Return all devices registered on the specified client application. Uses default client if no client specified.
+3. `get_device_details(device_id, client)`: Return the device object corresponding to 'device_id' on the specified client application. Uses default client if no client specified.
 4. `register_new_devices(devices)`: Register all devices contained in the list 'devices'. All list elements should be dictionaries of the format `{'dev_id':dev_id, 'dev_details':{A dictionary of all device details}}`
-5. `delete_devices(dev_ids, client)`: Delete all devices whose dev_id are in 'dev_ids'. Use client=None for default.
+5. `delete_devices(dev_ids, client)`: Delete all devices whose dev_id are in 'dev_ids'.  Uses default client if no client specified.
 6. `migrate_devices(dev_ids, from_app_id, from_access_key, migration_key)`: Migrate a set of devices from a TTN application to the default application of the class
+
+See the `test.py` file for examples.
