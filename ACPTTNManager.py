@@ -45,22 +45,29 @@ class ACPTTNManager:
             self.app_client.register_device(device['dev_id'], device['dev_details'])
 
     @classmethod
-    def delete_devices(self, dev_ids, client=None):
+    def delete_devices(self, dev_ids=None, client=None):
         '''
         Delete all devices whose dev_ids are in 'dev_ids'.
-        dev_ids: List containing dev_id of the devices to be deleted
+        dev_ids: List containing dev_id of the devices to be deleted. Delete all devices if None
         client: The TTN application client from which the devices should be removed. Default: Default TTN Application of the class
         '''
         if client == None:
             client = self.app_client
+
+        if dev_ids == None:
+            dev_ids = []
+            all_devices = self.get_all_devices(client)
+            for dev in all_devices:
+                dev_ids.append(dev.dev_id)
+
         for dev_id in dev_ids:
             client.delete_device(dev_id)
 
     @classmethod
-    def migrate_devices(self, dev_ids, from_app_id, from_access_key, migration_key):
+    def migrate_devices(self, from_app_id, from_access_key, migration_key, dev_ids=None):
         '''
         Migrate a set of devices from a TTN application to the default application of the class
-        dev_ids: List containing the dev_id of all the devices to be migrated
+        dev_ids: List containing the dev_id of all the devices to be migrated. Migrate all devices if empty
         from_app_id: Application Id of the application from which the devices are to be migrated
         from_access_key: Access key of the application from which the devices are to be migrated
         migration_key: App Key to be used for registering the device on the default application
@@ -68,6 +75,11 @@ class ACPTTNManager:
         from_ttn_handler = ttn.HandlerClient(from_app_id, from_access_key)
         from_app_client = from_ttn_handler.application()
 
+        if dev_ids == None:
+            dev_ids = []
+            all_devices = self.get_all_devices(from_app_client)
+            for dev in all_devices:
+                dev_ids.append(dev.dev_id)
         devices = []
         for dev_id in dev_ids:
             device = self.get_device_details(dev_id, from_app_client)
