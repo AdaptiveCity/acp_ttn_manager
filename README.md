@@ -34,6 +34,8 @@ DEFAULT_ACCESS_KEY = ""
 DEFAULT_APP_EUI = ""
 
 # Details of application from which migratingmanager.migrate_devices()
+MIGRATE_APP_ID = ""
+MIGRATE_ACCESS_KEY = ""
 ```
 
 Import the ACPTTNManager class and use the following class methods for the required functionalities
