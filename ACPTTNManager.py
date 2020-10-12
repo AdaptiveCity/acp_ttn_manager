@@ -14,7 +14,7 @@ class Client:
 
 class ACPTTNManager:
     client = Client(
-                        config.URL+config.DEFAULT_APP_ID, 
+                        config.URL + config.DEFAULT_APP_ID, 
                         {"Authorization": "Key "+config.DEFAULT_ACCESS_KEY, "Content-Type":"application/json"}
                 )
 
@@ -91,7 +91,7 @@ class ACPTTNManager:
         dev_ids: List containing the dev_id of all the devices to be migrated. Migrate all devices if empty
         '''
         migrate_client = Client(
-                                    url="https://eu.thethings.network:8094/applications/"+config.MIGRATE_APP_ID,
+                                    url= config.URL + config.MIGRATE_APP_ID,
                                     headers={"Authorization": "Key "+config.MIGRATE_ACCESS_KEY, "Content-Type":"application/json"}
                             )
         response_list = []
