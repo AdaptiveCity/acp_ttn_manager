@@ -33,7 +33,7 @@ DEFAULT_APP_ID = ""
 DEFAULT_ACCESS_KEY = ""
 DEFAULT_APP_EUI = ""
 
-# Details of application from which migratingmanager.migrate_devices()
+# Details of application from which migrating
 MIGRATE_APP_ID = ""
 MIGRATE_ACCESS_KEY = ""
 ```
