@@ -1,0 +1,71 @@
+{
+    "sensors": [
+        {
+            "elsys-co2-041abc": {
+                "acp_id": "elsys-co2-041abc",
+                "acp_type_id": "elsys-co2",
+                "acp_ts": 1603419679.745976,
+                "crate_id": "",
+                "acp_location": {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": {
+                    "app_id": "vlab-sensor-network",
+                    "dev_id": "elsys-co2-041abc",
+                    "lorawan_device": {
+                        "app_eui": "70B3D57ED00358FF",
+                        "dev_eui": "A81758FFFE042BAB",
+                        "app_id": "vlab-sensor-network",
+                        "dev_id": "elsys-co2-041abc",
+                        "dev_addr": "",
+                        "nwk_s_key": "",
+                        "app_s_key": "",
+                        "app_key": "90446CA1D89799E1A05C3C17A48151F7",
+                        "uses32_bit_f_cnt": true,
+                        "activation_constraints": "local"
+                    }
+                }
+            }
+        },
+        {
+            "elsys-co2-041bab": {
+                "acp_id": "elsys-co2-041bab",
+                "acp_type_id": "elsys-co2",
+                "acp_ts": 1603419679.745996,
+                "crate_id": "",
+                "acp_location": {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": {
+                    "app_id": "vlab-sensor-network",
+                    "dev_id": "elsys-co2-041bab",
+                    "lorawan_device": {
+                        "app_eui": "70B3D57ED00358FF",
+                        "dev_eui": "A81758FFFE041BAB",
+                        "app_id": "vlab-sensor-network",
+                        "dev_id": "elsys-co2-041bab",
+                        "dev_addr": "26014C51",
+                        "nwk_s_key": "69DD2E448FDD79AD6F1E6F633BB9543F",
+                        "app_s_key": "D5F6BADEF6658D23EE1EF722F05E0287",
+                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                        "uses32_bit_f_cnt": true,
+                        "activation_constraints": "local"
+                    },
+                    "attributes": {
+                        "key": "",
+                        "value": ""
+                    },
+                    "description": "Some description of the device"
+                }
+            }
+        }
+    ]
+}

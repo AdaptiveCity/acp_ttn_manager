@@ -1,0 +1,1 @@
+python3 sensors.py $1 $2 $3

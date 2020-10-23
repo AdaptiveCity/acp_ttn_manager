@@ -48,3 +48,11 @@ Import the ACPTTNManager class and use the following class methods for the requi
 6. `migrate_devices(dev_ids)`: Migrate a set of devices from a TTN application to the default application of the class. Migrate all devices if no dev_ids specified.
 
 See the `test.py` file for examples.
+
+### Working with json files
+Use `sensor_manager.sh` for reading and writing from json files. The following commands are supported;
+
+1. `./sensor_manager.sh read`: Read details of all devices and print on stdout
+2. `./sensor_manager.sh read filename.json`: Read details of all devices and write to `filename.json`
+3. `./sensor_manager.sh write filename.json`: Register any new device in `filename.json` on TTN Application. Notify usser if all devices are already registered.
+4. `./sensor_manager.sh delete dev_id`: Delete the device with device id `dev_id`
