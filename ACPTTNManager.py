@@ -63,7 +63,7 @@ class ACPTTNManager:
             if response.status_code != 200:
                 response_list.append(device['dev_id']+':'+response.text)
         if len(response_list) == 0:
-            return 'All devices added'
+            return 'Device added'
         else:
             return json.dumps(response_list)
         

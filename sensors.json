@@ -1,41 +1,10 @@
 {
     "sensors": [
         {
-            "elsys-co2-041abc": {
-                "acp_id": "elsys-co2-041abc",
-                "acp_type_id": "elsys-co2",
-                "acp_ts": 1603419679.745976,
-                "crate_id": "",
-                "acp_location": {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
-                "ttn_settings": {
-                    "app_id": "vlab-sensor-network",
-                    "dev_id": "elsys-co2-041abc",
-                    "lorawan_device": {
-                        "app_eui": "70B3D57ED00358FF",
-                        "dev_eui": "A81758FFFE042BAB",
-                        "app_id": "vlab-sensor-network",
-                        "dev_id": "elsys-co2-041abc",
-                        "dev_addr": "",
-                        "nwk_s_key": "",
-                        "app_s_key": "",
-                        "app_key": "90446CA1D89799E1A05C3C17A48151F7",
-                        "uses32_bit_f_cnt": true,
-                        "activation_constraints": "local"
-                    }
-                }
-            }
-        },
-        {
             "elsys-co2-041bab": {
                 "acp_id": "elsys-co2-041bab",
                 "acp_type_id": "elsys-co2",
-                "acp_ts": 1603419679.745996,
+                "acp_ts": 1603986080.090935,
                 "crate_id": "",
                 "acp_location": {
                     "x": 0,
@@ -52,9 +21,9 @@
                         "dev_eui": "A81758FFFE041BAB",
                         "app_id": "vlab-sensor-network",
                         "dev_id": "elsys-co2-041bab",
-                        "dev_addr": "26014C51",
-                        "nwk_s_key": "69DD2E448FDD79AD6F1E6F633BB9543F",
-                        "app_s_key": "D5F6BADEF6658D23EE1EF722F05E0287",
+                        "dev_addr": "260122DF",
+                        "nwk_s_key": "350EB4CF2EF84B5FF2994BF2A14E0E79",
+                        "app_s_key": "35D752C49EA5B427A829FBFB124A213B",
                         "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
                         "uses32_bit_f_cnt": true,
                         "activation_constraints": "local"
@@ -64,6 +33,216 @@
                         "value": ""
                     },
                     "description": "Some description of the device"
+                }
+            }
+        },
+        {
+            "elsys-co2-0520a9": {
+                "acp_id": "elsys-co2-0520a9",
+                "acp_type_id": "elsys-co2",
+                "acp_ts": 1603986080.090955,
+                "crate_id": "",
+                "acp_location": {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": {
+                    "app_id": "vlab-sensor-network",
+                    "dev_id": "elsys-co2-0520a9",
+                    "lorawan_device": {
+                        "app_eui": "70B3D57ED00358FF",
+                        "dev_eui": "A81758FFFE0520A9",
+                        "app_id": "vlab-sensor-network",
+                        "dev_id": "elsys-co2-0520a9",
+                        "dev_addr": "",
+                        "nwk_s_key": "",
+                        "app_s_key": "",
+                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                        "uses32_bit_f_cnt": true,
+                        "activation_constraints": "local"
+                    },
+                    "attributes": {
+                        "key": "",
+                        "value": ""
+                    }
+                }
+            }
+        },
+        {
+            "elsys-co2-0520aa": {
+                "acp_id": "elsys-co2-0520aa",
+                "acp_type_id": "elsys-co2",
+                "acp_ts": 1603986080.090963,
+                "crate_id": "",
+                "acp_location": {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": {
+                    "app_id": "vlab-sensor-network",
+                    "dev_id": "elsys-co2-0520aa",
+                    "lorawan_device": {
+                        "app_eui": "70B3D57ED00358FF",
+                        "dev_eui": "A81758FFFE0520AA",
+                        "app_id": "vlab-sensor-network",
+                        "dev_id": "elsys-co2-0520aa",
+                        "dev_addr": "",
+                        "nwk_s_key": "",
+                        "app_s_key": "",
+                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                        "uses32_bit_f_cnt": true,
+                        "activation_constraints": "local"
+                    },
+                    "attributes": {
+                        "key": "",
+                        "value": ""
+                    }
+                }
+            }
+        },
+        {
+            "elsys-ems-0503e1": {
+                "acp_id": "elsys-ems-0503e1",
+                "acp_type_id": "elsys-ems",
+                "acp_ts": 1603986080.090969,
+                "crate_id": "",
+                "acp_location": {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": {
+                    "app_id": "vlab-sensor-network",
+                    "dev_id": "elsys-ems-0503e1",
+                    "lorawan_device": {
+                        "app_eui": "70B3D57ED00358FF",
+                        "dev_eui": "A81758FFFE0503E1",
+                        "app_id": "vlab-sensor-network",
+                        "dev_id": "elsys-ems-0503e1",
+                        "dev_addr": "",
+                        "nwk_s_key": "",
+                        "app_s_key": "",
+                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                        "uses32_bit_f_cnt": true,
+                        "activation_constraints": "local"
+                    },
+                    "attributes": {
+                        "key": "",
+                        "value": ""
+                    }
+                }
+            }
+        },
+        {
+            "elsys-ems-0503e4": {
+                "acp_id": "elsys-ems-0503e4",
+                "acp_type_id": "elsys-ems",
+                "acp_ts": 1603986080.090974,
+                "crate_id": "",
+                "acp_location": {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": {
+                    "app_id": "vlab-sensor-network",
+                    "dev_id": "elsys-ems-0503e4",
+                    "lorawan_device": {
+                        "app_eui": "70B3D57ED00358FF",
+                        "dev_eui": "A81758FFFE0503E4",
+                        "app_id": "vlab-sensor-network",
+                        "dev_id": "elsys-ems-0503e4",
+                        "dev_addr": "",
+                        "nwk_s_key": "",
+                        "app_s_key": "",
+                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                        "uses32_bit_f_cnt": true,
+                        "activation_constraints": "local"
+                    },
+                    "attributes": {
+                        "key": "",
+                        "value": ""
+                    }
+                }
+            }
+        },
+        {
+            "elsys-eye-048161": {
+                "acp_id": "elsys-eye-048161",
+                "acp_type_id": "elsys-eye",
+                "acp_ts": 1603986080.090981,
+                "crate_id": "",
+                "acp_location": {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": {
+                    "app_id": "vlab-sensor-network",
+                    "dev_id": "elsys-eye-048161",
+                    "lorawan_device": {
+                        "app_eui": "70B3D57ED00358FF",
+                        "dev_eui": "A81758FFFE048161",
+                        "app_id": "vlab-sensor-network",
+                        "dev_id": "elsys-eye-048161",
+                        "dev_addr": "",
+                        "nwk_s_key": "",
+                        "app_s_key": "",
+                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                        "uses32_bit_f_cnt": true,
+                        "activation_constraints": "local"
+                    },
+                    "attributes": {
+                        "key": "",
+                        "value": ""
+                    }
+                }
+            }
+        },
+        {
+            "elsys-eye-048163": {
+                "acp_id": "elsys-eye-048163",
+                "acp_type_id": "elsys-eye",
+                "acp_ts": 1603986080.090986,
+                "crate_id": "",
+                "acp_location": {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": {
+                    "app_id": "vlab-sensor-network",
+                    "dev_id": "elsys-eye-048163",
+                    "lorawan_device": {
+                        "app_eui": "70B3D57ED00358FF",
+                        "dev_eui": "A81758FFFE048163",
+                        "app_id": "vlab-sensor-network",
+                        "dev_id": "elsys-eye-048163",
+                        "dev_addr": "",
+                        "nwk_s_key": "",
+                        "app_s_key": "",
+                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                        "uses32_bit_f_cnt": true,
+                        "activation_constraints": "local"
+                    },
+                    "attributes": {
+                        "key": "",
+                        "value": ""
+                    }
                 }
             }
         }
