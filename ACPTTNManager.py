@@ -101,17 +101,16 @@ class ACPTTNManager:
             for device in devices['devices']:
                 response = ACPTTNManager.__migrate_device(device, self, migrate_client)
 
-                if response.status_code != 200:
-                    response_list.append(device['dev_id']+':'+response.text)
-
+                if response != 'Device added':
+                    response_list.append(response)
         else:
             for dev_id in dev_ids:
                 device = self.get_device_details(dev_id, migrate_client)
         
                 response = ACPTTNManager.__migrate_device(device, self, migrate_client)
 
-                if response.status_code != 200:
-                    response_list.append(device['dev_id']+':'+response.text)
+                if response != 'Device added':
+                    response_list.append(response)
 
         if len(response_list) == 0:
             return "All devices migrated"
@@ -149,7 +148,7 @@ class ACPTTNManager:
         return migrate_device
 
     # Migrate a device from the migrate client to the default client
-    @staticmethod
+    
     def __migrate_device(device, self, migrate_client):
         dev_eui = device['lorawan_device']['dev_eui']
         dev_id = device['dev_id']
@@ -158,7 +157,7 @@ class ACPTTNManager:
 
         new_device = self.get_new_device(dev_eui, dev_id)
 
-        response = requests.post(self.client.url+"/devices",headers=self.client.headers, data=json.dumps(new_device))
+        response = self.register_new_devices([new_device])
         
         return response
 

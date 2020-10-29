@@ -4,7 +4,7 @@
             "elsys-co2-041bab": {
                 "acp_id": "elsys-co2-041bab",
                 "acp_type_id": "elsys-co2",
-                "acp_ts": 1603986080.090935,
+                "acp_ts": 1603993205.789446,
                 "crate_id": "",
                 "acp_location": {
                     "x": 0,
@@ -40,7 +40,7 @@
             "elsys-co2-0520a9": {
                 "acp_id": "elsys-co2-0520a9",
                 "acp_type_id": "elsys-co2",
-                "acp_ts": 1603986080.090955,
+                "acp_ts": 1603993205.789454,
                 "crate_id": "",
                 "acp_location": {
                     "x": 0,
@@ -57,9 +57,9 @@
                         "dev_eui": "A81758FFFE0520A9",
                         "app_id": "vlab-sensor-network",
                         "dev_id": "elsys-co2-0520a9",
-                        "dev_addr": "",
-                        "nwk_s_key": "",
-                        "app_s_key": "",
+                        "dev_addr": "260167C9",
+                        "nwk_s_key": "39C1CB656E282E418FD87E93BAFEF1C1",
+                        "app_s_key": "6AABC6739D9B69A8275AF4A2F715E5F7",
                         "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
                         "uses32_bit_f_cnt": true,
                         "activation_constraints": "local"
@@ -75,7 +75,7 @@
             "elsys-co2-0520aa": {
                 "acp_id": "elsys-co2-0520aa",
                 "acp_type_id": "elsys-co2",
-                "acp_ts": 1603986080.090963,
+                "acp_ts": 1603993205.789456,
                 "crate_id": "",
                 "acp_location": {
                     "x": 0,
@@ -92,9 +92,9 @@
                         "dev_eui": "A81758FFFE0520AA",
                         "app_id": "vlab-sensor-network",
                         "dev_id": "elsys-co2-0520aa",
-                        "dev_addr": "",
-                        "nwk_s_key": "",
-                        "app_s_key": "",
+                        "dev_addr": "26015808",
+                        "nwk_s_key": "B324E11D8EA1C8434FB09A0E11723A2B",
+                        "app_s_key": "84E3F8C60BC03873426DFD781F30E21D",
                         "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
                         "uses32_bit_f_cnt": true,
                         "activation_constraints": "local"
@@ -110,7 +110,7 @@
             "elsys-ems-0503e1": {
                 "acp_id": "elsys-ems-0503e1",
                 "acp_type_id": "elsys-ems",
-                "acp_ts": 1603986080.090969,
+                "acp_ts": 1603993205.789458,
                 "crate_id": "",
                 "acp_location": {
                     "x": 0,
@@ -127,9 +127,9 @@
                         "dev_eui": "A81758FFFE0503E1",
                         "app_id": "vlab-sensor-network",
                         "dev_id": "elsys-ems-0503e1",
-                        "dev_addr": "",
-                        "nwk_s_key": "",
-                        "app_s_key": "",
+                        "dev_addr": "26012880",
+                        "nwk_s_key": "F06DFB2E52499603CABD7EAFE525A920",
+                        "app_s_key": "094480033A56910DD506A016957F3E53",
                         "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
                         "uses32_bit_f_cnt": true,
                         "activation_constraints": "local"
@@ -145,7 +145,7 @@
             "elsys-ems-0503e4": {
                 "acp_id": "elsys-ems-0503e4",
                 "acp_type_id": "elsys-ems",
-                "acp_ts": 1603986080.090974,
+                "acp_ts": 1603993205.789459,
                 "crate_id": "",
                 "acp_location": {
                     "x": 0,
@@ -162,9 +162,9 @@
                         "dev_eui": "A81758FFFE0503E4",
                         "app_id": "vlab-sensor-network",
                         "dev_id": "elsys-ems-0503e4",
-                        "dev_addr": "",
-                        "nwk_s_key": "",
-                        "app_s_key": "",
+                        "dev_addr": "260121CD",
+                        "nwk_s_key": "306E77771A900C5BF843BEFC28287671",
+                        "app_s_key": "8A830BBA32070982F509E323B0043DC0",
                         "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
                         "uses32_bit_f_cnt": true,
                         "activation_constraints": "local"
@@ -180,7 +180,7 @@
             "elsys-eye-048161": {
                 "acp_id": "elsys-eye-048161",
                 "acp_type_id": "elsys-eye",
-                "acp_ts": 1603986080.090981,
+                "acp_ts": 1603993205.789461,
                 "crate_id": "",
                 "acp_location": {
                     "x": 0,
@@ -197,9 +197,9 @@
                         "dev_eui": "A81758FFFE048161",
                         "app_id": "vlab-sensor-network",
                         "dev_id": "elsys-eye-048161",
-                        "dev_addr": "",
-                        "nwk_s_key": "",
-                        "app_s_key": "",
+                        "dev_addr": "260164A5",
+                        "nwk_s_key": "D651CED0B582B5C7881EA1B386237CB4",
+                        "app_s_key": "DE319F1FE6FC8ABB4F8EB024B2057119",
                         "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
                         "uses32_bit_f_cnt": true,
                         "activation_constraints": "local"
@@ -215,7 +215,7 @@
             "elsys-eye-048163": {
                 "acp_id": "elsys-eye-048163",
                 "acp_type_id": "elsys-eye",
-                "acp_ts": 1603986080.090986,
+                "acp_ts": 1603993205.789463,
                 "crate_id": "",
                 "acp_location": {
                     "x": 0,
@@ -232,9 +232,9 @@
                         "dev_eui": "A81758FFFE048163",
                         "app_id": "vlab-sensor-network",
                         "dev_id": "elsys-eye-048163",
-                        "dev_addr": "",
-                        "nwk_s_key": "",
-                        "app_s_key": "",
+                        "dev_addr": "26015A7E",
+                        "nwk_s_key": "A2FC6EB34CB7283470493EDCC91559CA",
+                        "app_s_key": "6C4A89D0BFB24443EC1DA7743B385B04",
                         "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
                         "uses32_bit_f_cnt": true,
                         "activation_constraints": "local"
