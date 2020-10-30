@@ -57,13 +57,19 @@ See the `test.py` file for examples.
 
 ### Using the provided script
 
-usage: ./ttn_manager.sh [-h] [-a app_id [-r] [-rf filename] [-w filename] [-d acp_id] [-m from_app_id [-f filename]]]
+usage: `./ttn_manager.sh [-h] [-a app_id [-r] [-rf filename] [-w filename] [-d acp_id] [-m from_app_id [-f filename]]]`
 
--h                                  Print this help page
--a                                  The app_id of the TTN application
--r                                  Read all the registered devices and print on stdout
--rf filename                        Read all the registered devices and write to a file
--w filename                         Register all devices in filename
--d acp_id                           Delete the device with the acp_id
--m from_app_id [-f filename]        Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be
+`-h`: Print the help page
+
+`-a`: The `app_id` of the TTN application
+
+`-r`: Read all the registered devices and print on stdout
+
+`-rf filename`: Read all the registered devices and write to a file
+
+`-w filename`: Register all devices in filename
+
+`-d acp_id`: Delete the device with the `acp_id`
+
+`-m from_app_id [-f filename]`: Migrate devices listed in filename from the `from_app_id` application to the one specified by `-a`. All devices to be
                                     migrated should have their acp_id in the file separated by commas. If no file specified, then migrate all devices.

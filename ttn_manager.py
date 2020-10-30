@@ -76,8 +76,16 @@ def delete(manager, acp_id):
     if response == {}:
         print('Device deleted')
 
-def migrate(manager, from_app_id, acp_id_list=None):
-    response = manager.migrate_devices(from_app_id, acp_id_list)
+def migrate(manager, from_app_id, acp_id_file=None):
+
+    if acp_id_file == None:
+        response = manager.migrate_devices(from_app_id)
+    else:
+        acp_id_list = []
+        ip = open(acp_id_file)
+        acp_id_list = ip.readlines()[0].strip().split(',')
+        response = manager.migrate_devices(from_app_id, acp_id_list)
+        ip.close()
 
     print(response)
 
@@ -85,10 +93,9 @@ def help():
     ip = open('commands.txt')
     for eachline in ip:
         print(eachline.strip())
+    ip.close()
 
 if __name__ == '__main__':
-
-    i = 1
     command_list = ['-h', '-a', '-r', '-rf', '-w', '-d', '-m', '-f']
     command_dict = {}
 
