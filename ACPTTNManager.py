@@ -1,4 +1,4 @@
-import config
+import secrets.settings as config
 import json
 import requests
 
@@ -118,7 +118,7 @@ class ACPTTNManager:
             return json.dumps(response_list)
 
     #Create a device dictionary
-    def get_new_device(dev_eui, dev_id):
+    def get_new_device(dev_eui, dev_id, app_key):
         migrate_device = {
                             "altitude": 0,
                             "app_id": config.DEFAULT_APP_ID,
@@ -134,7 +134,7 @@ class ACPTTNManager:
                                 "activation_constraints": "local",
                                 "app_eui": config.DEFAULT_APP_EUI,
                                 "app_id": config.DEFAULT_APP_ID,
-                                "app_key": config.MIGRATION_APP_KEY,
+                                "app_key": app_key,
                                 "dev_eui": dev_eui,
                                 "dev_id": dev_id,
                                 "disable_f_cnt_check": False,
@@ -152,10 +152,11 @@ class ACPTTNManager:
     def __migrate_device(device, self, migrate_client):
         dev_eui = device['lorawan_device']['dev_eui']
         dev_id = device['dev_id']
+        app_key = device['lorawan_device']['app_key']
 
         self.delete_device(dev_id,migrate_client)
 
-        new_device = self.get_new_device(dev_eui, dev_id)
+        new_device = self.get_new_device(dev_eui, dev_id, app_key)
 
         response = self.register_new_devices([new_device])
         
