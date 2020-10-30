@@ -1,9 +1,8 @@
+from requests.models import Response
 from ACPTTNManager import ACPTTNManager
 import json
 from datetime import datetime
 import sys
-
-manager = ACPTTNManager()
 
 def set_device_entry(device):
     split_dev_id = device['dev_id'].split('-')
@@ -28,7 +27,7 @@ def set_device_entry(device):
     }
     return device_entry
 
-def read(json_file=None):
+def read(manager, json_file=None):
     devices = manager.get_all_devices()
 
     if json_file == None:
@@ -45,7 +44,7 @@ def read(json_file=None):
             sensors['sensors'].append(device_entry)
         opfile.write(json.dumps(sensors, indent=4))
 
-def write(json_file):
+def write(manager, json_file):
 
     devices = manager.get_all_devices()
     dev_id_list = []
@@ -72,44 +71,66 @@ def write(json_file):
                 print(manager.register_new_devices([device]))
                 # print('device', device['dev_id'], 'successfully registered')
 
-def delete(acp_id):
+def delete(manager, acp_id):
     response = manager.delete_device(acp_id)
     if response == {}:
         print('Device deleted')
 
+def migrate(manager, from_app_id, acp_id_list=None):
+    response = manager.migrate_devices(from_app_id, acp_id_list)
+
+    print(response)
+
+def help():
+    ip = open('commands.txt')
+    for eachline in ip:
+        print(eachline.strip())
+
 if __name__ == '__main__':
-    command = sys.argv[1]    
 
-    if command == 'read':
-        filename = None
-        try:
-            filename = sys.argv[2]
-        except:
-            pass
-        read(filename)
+    i = 1
+    command_list = ['-h', '-a', '-r', '-rf', '-w', '-d', '-m', '-f']
+    command_dict = {}
 
-    elif command == 'write':
-        filename = None
-        try:
-            filename = sys.argv[2]
-        except:
-            pass
-
-        if filename == None:
-            print('Filename required')
+    if sys.argv[1] == '-h':
+        help()
+    else:
+        i = 1
+        while i < len(sys.argv):
+            command = sys.argv[i]
+            if command in command_list:
+                try:
+                    command_dict[command] = sys.argv[i+1]
+                except IndexError:
+                    if command == '-r':
+                        command_dict[sys.argv[i]] = ''
+                    else:
+                        print('Incorrect Command')
+                        help()
+                        exit()
+            else:
+                print('Incorrect Command')
+                help()
+                exit()
+            i+=2
+    
+        if '-a' not in command_dict.keys():
+            print('Need Application id')
+            help()
         else:
-            write(filename)
+            manager = ACPTTNManager(command_dict['-a'])
 
-    elif command == 'delete':
-        acp_id = None
-
-        try:
-            acp_id = sys.argv[2]
-        except:
-            pass
-
-        if acp_id == None:
-            print('Device id required')
-        else:
-            delete(acp_id)
+            if '-r' in command_dict.keys():
+                read(manager)
+            elif '-rf' in command_dict.keys():
+                read(manager, command_dict['-rf'])
+            elif '-w' in command_dict.keys():
+                write(manager, command_dict['-w'])
+            elif '-d' in command_dict.keys():
+                delete(manager, command_dict['-d'])
+            elif '-m' in command_dict.keys():
+                if '-f' in command_dict.keys():
+                    migrate(manager, command_dict['-m'], command_dict['-f'])
+                else:
+                    migrate(manager, command_dict['-m'])
 

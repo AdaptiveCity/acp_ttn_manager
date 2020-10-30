@@ -13,12 +13,15 @@ class Client:
 
 
 class ACPTTNManager:
-    client = Client(
-                        config.URL + config.DEFAULT_APP_ID, 
-                        {"Authorization": "Key "+config.DEFAULT_ACCESS_KEY, "Content-Type":"application/json"}
+
+    client = ''
+
+    def __init__(self, app_id):
+        self.client = Client(
+                        config.URL + config.TTN_APPLICATIONS[app_id]['app_id'], 
+                        {"Authorization": "Key "+config.TTN_APPLICATIONS[app_id]['access_key'], "Content-Type":"application/json"}
                 )
 
-    @classmethod
     def get_app_details(self):
         '''
         Return the TTN Application object
@@ -26,7 +29,6 @@ class ACPTTNManager:
         response = requests.get(self.client.url,headers=self.client.headers)
         return response.json()
 
-    @classmethod
     def get_all_devices(self, client=None):
         '''
         Return all devices registered on the specified client application
@@ -39,7 +41,6 @@ class ACPTTNManager:
         return response.json()
         
 
-    @classmethod
     def get_device_details(self, device_id, client=None):
         '''
         Return the device object corresponding to 'device_id' on the specified client application
@@ -51,7 +52,6 @@ class ACPTTNManager:
 
         return response.json()
 
-    @classmethod
     def register_new_devices(self, devices):
         '''
         Register all devices contained in the list 'devices'
@@ -68,7 +68,6 @@ class ACPTTNManager:
             return json.dumps(response_list)
         
 
-    @classmethod
     def delete_device(self, dev_id, client=None):
         '''
         Delete a device with device id as dev_id.
@@ -83,23 +82,21 @@ class ACPTTNManager:
         return response.json()
     
     
-
-    @classmethod
-    def migrate_devices(self, dev_ids=None):
+    def migrate_devices(self, from_app_id, dev_ids=None):
         '''
         Migrate a set of devices from a TTN application to the default application of the class
         dev_ids: List containing the dev_id of all the devices to be migrated. Migrate all devices if empty
         '''
         migrate_client = Client(
-                                    url= config.URL + config.MIGRATE_APP_ID,
-                                    headers={"Authorization": "Key "+config.MIGRATE_ACCESS_KEY, "Content-Type":"application/json"}
+                                    url= config.URL + config.TTN_APPLICATIONS[from_app_id]['app_id'],
+                                    headers={"Authorization": "Key "+config.TTN_APPLICATIONS[from_app_id]['access_key'], "Content-Type":"application/json"}
                             )
         response_list = []
-
+        to_app_id = self.get_app_details()['app_id']
         if dev_ids == None:            
             devices = self.get_all_devices(migrate_client)
             for device in devices['devices']:
-                response = ACPTTNManager.__migrate_device(device, self, migrate_client)
+                response = ACPTTNManager.__migrate_device(device, self, migrate_client, to_app_id)
 
                 if response != 'Device added':
                     response_list.append(response)
@@ -107,7 +104,7 @@ class ACPTTNManager:
             for dev_id in dev_ids:
                 device = self.get_device_details(dev_id, migrate_client)
         
-                response = ACPTTNManager.__migrate_device(device, self, migrate_client)
+                response = ACPTTNManager.__migrate_device(device, self, migrate_client, to_app_id)
 
                 if response != 'Device added':
                     response_list.append(response)
@@ -118,10 +115,10 @@ class ACPTTNManager:
             return json.dumps(response_list)
 
     #Create a device dictionary
-    def get_new_device(dev_eui, dev_id, app_key):
+    def get_new_device(self, dev_eui, dev_id, app_key, to_app_id):
         migrate_device = {
                             "altitude": 0,
-                            "app_id": config.DEFAULT_APP_ID,
+                            "app_id": config.TTN_APPLICATIONS[to_app_id]['app_id'],
                             "attributes": {
                                 "key": "",
                                 "value": ""
@@ -132,8 +129,8 @@ class ACPTTNManager:
                             "longitude": 0.0,
                             "lorawan_device": {
                                 "activation_constraints": "local",
-                                "app_eui": config.DEFAULT_APP_EUI,
-                                "app_id": config.DEFAULT_APP_ID,
+                                "app_eui": config.TTN_APPLICATIONS[to_app_id]['app_eui'],
+                                "app_id": config.TTN_APPLICATIONS[to_app_id]['app_id'],
                                 "app_key": app_key,
                                 "dev_eui": dev_eui,
                                 "dev_id": dev_id,
@@ -149,14 +146,14 @@ class ACPTTNManager:
 
     # Migrate a device from the migrate client to the default client
     
-    def __migrate_device(device, self, migrate_client):
+    def __migrate_device(device, self, migrate_client, to_app_id):
         dev_eui = device['lorawan_device']['dev_eui']
         dev_id = device['dev_id']
         app_key = device['lorawan_device']['app_key']
 
         self.delete_device(dev_id,migrate_client)
 
-        new_device = self.get_new_device(dev_eui, dev_id, app_key)
+        new_device = self.get_new_device(dev_eui, dev_id, app_key, to_app_id)
 
         response = self.register_new_devices([new_device])
         
