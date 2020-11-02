@@ -52,7 +52,7 @@ class ACPTTNManager:
 
         return response.json()
 
-    def register_new_devices(self, devices):
+    def register_devices(self, devices):
         '''
         Register all devices contained in the list 'devices'
         devices: A list of device dictionaries of the form defined at https://www.thethingsnetwork.org/docs/applications/manager/api.html
@@ -150,7 +150,7 @@ class ACPTTNManager:
 
         self.delete_device(dev_id,migrate_client)        
 
-        response = self.register_new_devices([new_device])
+        response = self.register_devices([new_device])
         
         return response
 

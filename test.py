@@ -6,4 +6,4 @@ app = manager.get_app_details()
 
 devices = manager.get_all_devices()
 device = manager.get_device_details("elsys-co2-041bab")
-manager.migrate_devices()
+manager.migrate_devices('vlab-sensor-network-2')
