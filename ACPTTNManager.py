@@ -115,29 +115,26 @@ class ACPTTNManager:
             return json.dumps(response_list)
 
     #Create a device dictionary
-    def get_new_device(self, dev_eui, dev_id, app_key, to_app_id):
+    def get_new_device(self, device, to_app_id):
         migrate_device = {
-                            "altitude": 0,
+                            "altitude": device['altitude'] if 'altitude' in device.keys() else 0,
                             "app_id": config.TTN_APPLICATIONS[to_app_id]['app_id'],
-                            "attributes": {
-                                "key": "",
-                                "value": ""
-                            },
-                            "description": "Some description of the device",
-                            "dev_id": dev_id,
-                            "latitude": 0.0,
-                            "longitude": 0.0,
+                            "attributes": device['attributes'] if 'attributes' in device.keys() else {"key": "","value": ""},
+                            "description": device['description'] if 'description' in device.keys() else "",
+                            "dev_id": device['dev_id'],
+                            "latitude": device['latitude'] if 'latitude' in device.keys() else 0.0,
+                            "longitude": device['longitude'] if 'longitude' in device.keys() else 0.0,
                             "lorawan_device": {
-                                "activation_constraints": "local",
+                                "activation_constraints": device['lorawan_device']['activation_constraints'] if 'activation_constraints' in device.keys() else "local",
                                 "app_eui": config.TTN_APPLICATIONS[to_app_id]['app_eui'],
                                 "app_id": config.TTN_APPLICATIONS[to_app_id]['app_id'],
-                                "app_key": app_key,
-                                "dev_eui": dev_eui,
-                                "dev_id": dev_id,
+                                "app_key": device['lorawan_device']['app_key'],
+                                "dev_eui": device['lorawan_device']['dev_eui'],
+                                "dev_id": device['dev_id'],
                                 "disable_f_cnt_check": False,
-                                "f_cnt_down": 0,
-                                "f_cnt_up": 0,
-                                "last_seen": 0,
+                                "f_cnt_down": device['f_cnt_down'] if 'f_cnt_down' in device.keys() else 0,
+                                "f_cnt_up": device['f_cnt_up'] if 'f_cnt_up' in device.keys() else 0,
+                                "last_seen": device['last_seen'] if 'last_seen' in device.keys() else 0,
                                 "uses32_bit_f_cnt": True
                             }
                         }
@@ -147,13 +144,11 @@ class ACPTTNManager:
     # Migrate a device from the migrate client to the default client
     
     def __migrate_device(device, self, migrate_client, to_app_id):
-        dev_eui = device['lorawan_device']['dev_eui']
         dev_id = device['dev_id']
-        app_key = device['lorawan_device']['app_key']
 
-        self.delete_device(dev_id,migrate_client)
+        new_device = self.get_new_device(device, to_app_id)
 
-        new_device = self.get_new_device(dev_eui, dev_id, app_key, to_app_id)
+        self.delete_device(dev_id,migrate_client)        
 
         response = self.register_new_devices([new_device])
         

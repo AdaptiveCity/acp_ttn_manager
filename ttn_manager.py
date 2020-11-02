@@ -65,11 +65,7 @@ def write(manager, json_file):
                 "longitude": ttn_settings['longitude'] if 'longitude' in ttn_settings.keys() else 0.0,
                 "lorawan_device": ttn_settings['lorawan_device']
             }
-            if device['dev_id'] in dev_id_list:
-                print('device', device['dev_id'], 'already registered')
-            else:
-                print(manager.register_new_devices([device]))
-                # print('device', device['dev_id'], 'successfully registered')
+            print(manager.register_new_devices([device]))
 
 def delete(manager, acp_id):
     response = manager.delete_device(acp_id)

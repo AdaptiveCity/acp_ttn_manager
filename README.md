@@ -67,7 +67,7 @@ usage: `./ttn_manager.sh [-h] [-a app_id [-r] [-rf filename] [-w filename] [-d a
 
 `-rf filename`: Read all the registered devices and write to a file
 
-`-w filename`: Register all devices in filename
+`-w filename`: Register all devices in filename. If device already present then update settings as provided in the file.
 
 `-d acp_id`: Delete the device with the `acp_id`
 
