@@ -4,27 +4,55 @@ import json
 from datetime import datetime
 import sys
 
-def set_device_entry(device):
+def get_existing_device_details(json_file):
+    existing_devices = {}
+    with open(json_file) as jfile:
+        json_data = json.load(jfile)
+        for sensor in json_data['sensors']:
+            existing_devices[sensor[list(sensor.keys())[0]]['acp_id']] = sensor[list(sensor.keys())[0]]
+
+    return existing_devices
+
+def set_device_entry(device, existing_device=None):
     split_dev_id = device['dev_id'].split('-')
     # print(split_dev_id)
     device_type = split_dev_id[0]+'-'+split_dev_id[1]
     acp_ts = datetime.now().timestamp()
-    device_entry = {
-        device['dev_id']:{
-            "acp_id": device['dev_id'],
-            "acp_type_id": device_type,
-            "acp_ts": acp_ts,
-            "crate_id": "",
-            "acp_location": {
-                "x": 0,
-                "y": 0,
-                "zf": 0,
-                "f": 0,
-                "system": "WGB"
-            },
-            "ttn_settings": device
+    device_entry = ''
+    if existing_device != None:
+        device_entry = {
+            device['dev_id']:{
+                "acp_id": device['dev_id'],
+                "acp_type_id": existing_device['acp_type_id'] if 'acp_type_id' in existing_device.keys() else device_type,
+                "acp_ts": acp_ts,
+                "crate_id": existing_device['crate_id'] if 'crate_id' in existing_device.keys() else "",
+                "acp_location": existing_device['acp_location'] if 'acp_location' in existing_device.keys() else {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": device
+            }
         }
-    }
+    else:
+        device_entry = {
+            device['dev_id']:{
+                "acp_id": device['dev_id'],
+                "acp_type_id": device_type,
+                "acp_ts": acp_ts,
+                "crate_id": "",
+                "acp_location": {
+                    "x": 0,
+                    "y": 0,
+                    "zf": 0,
+                    "f": 0,
+                    "system": "WGB"
+                },
+                "ttn_settings": device
+            }
+        }
     return device_entry
 
 def read(manager, json_file=None):
@@ -37,10 +65,12 @@ def read(manager, json_file=None):
             sensors['sensors'].append(device_entry)
         print(json.dumps(sensors, indent=4))
     else:
+        existing_devices = get_existing_device_details(json_file)
         opfile = open(json_file, 'w')
         sensors = {'sensors':[]}
         for device in devices['devices']:
-            device_entry = set_device_entry(device)
+            existing_device = existing_devices[device['dev_id']] if device['dev_id'] in existing_devices.keys() else None
+            device_entry = set_device_entry(device, existing_device)
             sensors['sensors'].append(device_entry)
         opfile.write(json.dumps(sensors, indent=4))
 
