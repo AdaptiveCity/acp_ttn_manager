@@ -126,7 +126,7 @@ class ACPTTNManager:
                             "longitude": device['longitude'] if 'longitude' in device.keys() else 0.0,
                             "lorawan_device": {
                                 "activation_constraints": device['lorawan_device']['activation_constraints'] if 'activation_constraints' in device.keys() else "local",
-                                "app_eui": config.TTN_APPLICATIONS[to_app_id]['app_eui'],
+                                "app_eui": device['lorawan_device']['app_eui'],
                                 "app_id": config.TTN_APPLICATIONS[to_app_id]['app_id'],
                                 "app_key": device['lorawan_device']['app_key'],
                                 "dev_eui": device['lorawan_device']['dev_eui'],

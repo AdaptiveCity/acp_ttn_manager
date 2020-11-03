@@ -58,19 +58,23 @@ See the `test.py` file for examples.
 
 ### Using the provided script
 
-usage: `./ttn_manager.sh [-h] [-a app_id [-r] [-rf filename] [-w filename] [-d acp_id] [-m from_app_id [-f filename]]]`
+usage: `ttn_manager.py [-h] -a APP_ID [-r | -w | -d acp_id | -m from_app_id] [-f FILENAME]`
 
-`-h`: Print the help page
+Import/export json data <-> TTN
 
-`-a`: The `app_id` of the TTN application
+optional arguments:
 
-`-r`: Read all the registered devices and print on stdout
+  `-h, --help`: show this help message and exit
 
-`-rf filename`: Read all the registered devices and write to a file
-
-`-w filename`: Register all devices in filename. If device already present then update settings as provided in the file.
-
-`-d acp_id`: Delete the device with the `acp_id`
-
-`-m from_app_id [-f filename]`: Migrate devices listed in filename from the `from_app_id` application to the one specified by `-a`. All devices to be
-                                    migrated should have their acp_id in the file separated by commas. If no file specified, then migrate all devices.
+  `-a APP_ID, --app_id APP_ID`: Application id of the TTN Application
+  
+  `-r, --read`: Read all the registered devices and print to a file if filename provided, else print to stdout
+  
+  `-w, --write`: Register all devices in filename. Provide the filename using -f or --filename. If device already present then update settings 
+  as provided in the file.
+  
+  `-d acp_id, --delete acp_id`: Delete the device with the acp_id
+  
+  `-m from_app_id, --migrate from_app_id`: Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a file separated by commas. Provide the filename using -f or --filename. If no file specified, then migrate all devices.
+  
+  `-f FILENAME, --filename FILENAME`: Filename for the command requesting a file
