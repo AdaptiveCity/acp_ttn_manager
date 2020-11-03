@@ -58,7 +58,7 @@ See the `test.py` file for examples.
 
 ### Using the provided script
 
-usage: `ttn_manager.py [-h] -a APP_ID [-r | -w | -d acp_id | -m from_app_id] [-f FILENAME]`
+usage: `./ttn_manager.sh [-h] -a APP_ID [-r | -w | -d acp_id | -m from_app_id] [-f FILENAME]`
 
 Import/export json data <-> TTN
 
