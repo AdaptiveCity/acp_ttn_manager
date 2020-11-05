@@ -118,6 +118,17 @@ def migrate(manager, from_app_id, acp_id_file=None):
 
     print(response)
 
+####################################################################
+# Load settings
+####################################################################
+def load_settings():
+    with open('secrets/settings.json', 'r') as settings_file:
+        settings_data = settings_file.read()
+
+    # parse file
+    settings = json.loads(settings_data)
+    return settings
+
 def parse_init():
     parser = argparse.ArgumentParser(description='Import/export json data <-> TTN')
     group = parser.add_mutually_exclusive_group()
@@ -126,11 +137,11 @@ def parse_init():
                         nargs=1,
                         required=True,
                         help='Application id of the TTN Application')
-    
+
     group.add_argument('-r', '--read',
                         action='store_true',
                         help='Read all the registered devices and print to a file if filename provided, else print to stdout')
-    
+
     group.add_argument('-w', '--write',
                         action='store_true',
                         help='Register all devices in filename. Provide the filename using -f or --filename. If device already present then update settings as provided in the file.')
@@ -148,7 +159,7 @@ def parse_init():
     parser.add_argument('-f', '--filename',
                         nargs=1,
                         required='--write' in sys.argv or '-w' in sys.argv,
-                        help='Filename for the command')           
+                        help='Filename for the command')
 
     return parser
 
@@ -156,10 +167,12 @@ if __name__ == '__main__':
 
     parser = parse_init()
     args = parser.parse_args()
-                            
+
     app_id = args.app_id[0]
 
-    manager = ACPTTNManager(app_id)
+    settings = load_settings()
+
+    manager = ACPTTNManager(settings, app_id)
 
     if args.read:
         if args.filename:
@@ -169,13 +182,12 @@ if __name__ == '__main__':
 
     elif args.write:
         write(manager, args.filename[0])
-    
+
     elif args.delete:
         delete(manager, args.delete[0])
-    
+
     elif args.migrate:
         if args.filename:
             migrate(manager, args.migrate[0], args.filename[0])
         else:
             migrate(manager, args.migrate[0])
-
