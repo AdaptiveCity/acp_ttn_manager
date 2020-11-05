@@ -25,25 +25,60 @@ python3 -m pip install -r requirements.txt
 ```
 
 ## Usage
-Create a `secrets/config.py` file with the following entries;
+
+Create a `secrets/settings.json` file similar to the following:
 
 ```
-URL = "https://eu.thethings.network:8094/applications/"
+{
+  "URL": "https://eu.thethings.network:8094/applications/",
 
-TTN_APPLICATIONS = {
-                        'app_id1' : {
-                            'app_id' : "app_id1",
-                            'access_key' : "accesskey1",
-                            'app_eui' : "appeui1"
-                        },
+  "TTN_APPLICATIONS": {
+        "cambridge-sensor-network2" : {
+            "app_id" : "cambridge-sensor-network2",
+            "access_key" : "ttn-account-v2.zZdXY6-osiMd...0C9tttZ_tcMA",
+            "app_eui" : "appeui1"
+        },
 
-                        'app_id2' : {
-                            'app_id' : "app_id2",
-                            'access_key' : "accesskey2",
-                            'app_eui' : "appeui2"
-                        }
-                    }
+        "vlab-sensor-network" : {
+            "app_id" : "vlab-sensor-network",
+            "access_key" : "ttn-account-v2.qB7r40lWa...FK1m81rubx1_OIM",
+            "app_eui" : "appeui2"
+        }
+   }
+}
+
 ```
+
+### Using the provided script `ttn_manager.sh`
+
+usage: `./ttn_manager.sh [-h] -a APP_ID [-r | -w | -d acp_id | -m from_app_id] [-f FILENAME]`
+
+Import/export json data <-> TTN
+
+optional arguments:
+
+  `-h, --help`: show this help message and exit
+
+  `-a APP_ID, --app_id APP_ID`: Application id of the TTN Application
+
+  `-r, --read`: Read all the registered devices and print to a file if filename provided, else print to stdout
+
+  `-w, --write`: Register all devices in filename. Provide the filename using -f or --filename. If device already present then update settings
+  as provided in the file.
+
+  `-d acp_id, --delete acp_id`: Delete the device with the acp_id
+
+  `-m from_app_id, --migrate from_app_id`: Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a file separated by commas. Provide the filename using -f or --filename. If no file specified, then migrate all devices.
+
+  `-f FILENAME, --filename FILENAME`: Filename for the command requesting a file
+
+#### Examples
+
+Dump an application's defined sensors to stdout:
+```
+./ttn_manager.sh --app_id cambridge-sensor-network2 --read
+```
+
 ### Usage with your own python code
 Import the ACPTTNManager class and use the following class methods for the required functionalities
 
@@ -55,26 +90,3 @@ Import the ACPTTNManager class and use the following class methods for the requi
 6. `migrate_devices(dev_ids)`: Migrate a set of devices from a TTN application to the default application of the class. Migrate all devices if no dev_ids specified.
 
 See the `test.py` file for examples.
-
-### Using the provided script
-
-usage: `./ttn_manager.sh [-h] -a APP_ID [-r | -w | -d acp_id | -m from_app_id] [-f FILENAME]`
-
-Import/export json data <-> TTN
-
-optional arguments:
-
-  `-h, --help`: show this help message and exit
-
-  `-a APP_ID, --app_id APP_ID`: Application id of the TTN Application
-  
-  `-r, --read`: Read all the registered devices and print to a file if filename provided, else print to stdout
-  
-  `-w, --write`: Register all devices in filename. Provide the filename using -f or --filename. If device already present then update settings 
-  as provided in the file.
-  
-  `-d acp_id, --delete acp_id`: Delete the device with the acp_id
-  
-  `-m from_app_id, --migrate from_app_id`: Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a file separated by commas. Provide the filename using -f or --filename. If no file specified, then migrate all devices.
-  
-  `-f FILENAME, --filename FILENAME`: Filename for the command requesting a file

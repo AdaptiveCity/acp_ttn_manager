@@ -129,6 +129,9 @@ def load_settings():
     settings = json.loads(settings_data)
     return settings
 
+####################################################################
+# Setup command line argument parsing
+####################################################################
 def parse_init():
     parser = argparse.ArgumentParser(description='Import/export json data <-> TTN')
     group = parser.add_mutually_exclusive_group()
@@ -163,6 +166,9 @@ def parse_init():
 
     return parser
 
+####################################################################
+# main program
+####################################################################
 if __name__ == '__main__':
 
     parser = parse_init()
