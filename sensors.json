@@ -1,250 +1,965 @@
 {
-    "sensors": [
-        {
-            "elsys-co2-041bab": {
-                "acp_id": "elsys-co2-041bab",
-                "acp_type_id": "elsys-co2",
-                "acp_ts": 1603993205.789446,
-                "crate_id": "",
-                "acp_location": {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
-                "ttn_settings": {
-                    "app_id": "vlab-sensor-network",
-                    "dev_id": "elsys-co2-041bab",
-                    "lorawan_device": {
-                        "app_eui": "70B3D57ED00358FF",
-                        "dev_eui": "A81758FFFE041BAB",
-                        "app_id": "vlab-sensor-network",
-                        "dev_id": "elsys-co2-041bab",
-                        "dev_addr": "260122DF",
-                        "nwk_s_key": "350EB4CF2EF84B5FF2994BF2A14E0E79",
-                        "app_s_key": "35D752C49EA5B427A829FBFB124A213B",
-                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
-                        "uses32_bit_f_cnt": true,
-                        "activation_constraints": "local"
-                    },
-                    "attributes": {
-                        "key": "",
-                        "value": ""
-                    },
-                    "description": "Some description of the device"
-                }
-            }
-        },
-        {
-            "elsys-co2-0520a9": {
-                "acp_id": "elsys-co2-0520a9",
-                "acp_type_id": "elsys-co2",
-                "acp_ts": 1603993205.789454,
-                "crate_id": "",
-                "acp_location": {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
-                "ttn_settings": {
-                    "app_id": "vlab-sensor-network",
-                    "dev_id": "elsys-co2-0520a9",
-                    "lorawan_device": {
-                        "app_eui": "70B3D57ED00358FF",
-                        "dev_eui": "A81758FFFE0520A9",
-                        "app_id": "vlab-sensor-network",
-                        "dev_id": "elsys-co2-0520a9",
-                        "dev_addr": "260167C9",
-                        "nwk_s_key": "39C1CB656E282E418FD87E93BAFEF1C1",
-                        "app_s_key": "6AABC6739D9B69A8275AF4A2F715E5F7",
-                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
-                        "uses32_bit_f_cnt": true,
-                        "activation_constraints": "local"
-                    },
-                    "attributes": {
-                        "key": "",
-                        "value": ""
-                    }
-                }
-            }
-        },
-        {
-            "elsys-co2-0520aa": {
-                "acp_id": "elsys-co2-0520aa",
-                "acp_type_id": "elsys-co2",
-                "acp_ts": 1603993205.789456,
-                "crate_id": "",
-                "acp_location": {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
-                "ttn_settings": {
-                    "app_id": "vlab-sensor-network",
-                    "dev_id": "elsys-co2-0520aa",
-                    "lorawan_device": {
-                        "app_eui": "70B3D57ED00358FF",
-                        "dev_eui": "A81758FFFE0520AA",
-                        "app_id": "vlab-sensor-network",
-                        "dev_id": "elsys-co2-0520aa",
-                        "dev_addr": "26015808",
-                        "nwk_s_key": "B324E11D8EA1C8434FB09A0E11723A2B",
-                        "app_s_key": "84E3F8C60BC03873426DFD781F30E21D",
-                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
-                        "uses32_bit_f_cnt": true,
-                        "activation_constraints": "local"
-                    },
-                    "attributes": {
-                        "key": "",
-                        "value": ""
-                    }
-                }
-            }
-        },
-        {
-            "elsys-ems-0503e1": {
-                "acp_id": "elsys-ems-0503e1",
-                "acp_type_id": "elsys-ems",
-                "acp_ts": 1603993205.789458,
-                "crate_id": "",
-                "acp_location": {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
-                "ttn_settings": {
-                    "app_id": "vlab-sensor-network",
-                    "dev_id": "elsys-ems-0503e1",
-                    "lorawan_device": {
-                        "app_eui": "70B3D57ED00358FF",
-                        "dev_eui": "A81758FFFE0503E1",
-                        "app_id": "vlab-sensor-network",
-                        "dev_id": "elsys-ems-0503e1",
-                        "dev_addr": "26012880",
-                        "nwk_s_key": "F06DFB2E52499603CABD7EAFE525A920",
-                        "app_s_key": "094480033A56910DD506A016957F3E53",
-                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
-                        "uses32_bit_f_cnt": true,
-                        "activation_constraints": "local"
-                    },
-                    "attributes": {
-                        "key": "",
-                        "value": ""
-                    }
-                }
-            }
-        },
-        {
-            "elsys-ems-0503e4": {
-                "acp_id": "elsys-ems-0503e4",
-                "acp_type_id": "elsys-ems",
-                "acp_ts": 1603993205.789459,
-                "crate_id": "",
-                "acp_location": {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
-                "ttn_settings": {
-                    "app_id": "vlab-sensor-network",
-                    "dev_id": "elsys-ems-0503e4",
-                    "lorawan_device": {
-                        "app_eui": "70B3D57ED00358FF",
-                        "dev_eui": "A81758FFFE0503E4",
-                        "app_id": "vlab-sensor-network",
-                        "dev_id": "elsys-ems-0503e4",
-                        "dev_addr": "260121CD",
-                        "nwk_s_key": "306E77771A900C5BF843BEFC28287671",
-                        "app_s_key": "8A830BBA32070982F509E323B0043DC0",
-                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
-                        "uses32_bit_f_cnt": true,
-                        "activation_constraints": "local"
-                    },
-                    "attributes": {
-                        "key": "",
-                        "value": ""
-                    }
-                }
-            }
-        },
-        {
-            "elsys-eye-048161": {
-                "acp_id": "elsys-eye-048161",
-                "acp_type_id": "elsys-eye",
-                "acp_ts": 1603993205.789461,
-                "crate_id": "",
-                "acp_location": {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
-                "ttn_settings": {
-                    "app_id": "vlab-sensor-network",
-                    "dev_id": "elsys-eye-048161",
-                    "lorawan_device": {
-                        "app_eui": "70B3D57ED00358FF",
-                        "dev_eui": "A81758FFFE048161",
-                        "app_id": "vlab-sensor-network",
-                        "dev_id": "elsys-eye-048161",
-                        "dev_addr": "260164A5",
-                        "nwk_s_key": "D651CED0B582B5C7881EA1B386237CB4",
-                        "app_s_key": "DE319F1FE6FC8ABB4F8EB024B2057119",
-                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
-                        "uses32_bit_f_cnt": true,
-                        "activation_constraints": "local"
-                    },
-                    "attributes": {
-                        "key": "",
-                        "value": ""
-                    }
-                }
-            }
-        },
-        {
-            "elsys-eye-048163": {
-                "acp_id": "elsys-eye-048163",
-                "acp_type_id": "elsys-eye",
-                "acp_ts": 1603993205.789463,
-                "crate_id": "",
-                "acp_location": {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
-                "ttn_settings": {
-                    "app_id": "vlab-sensor-network",
-                    "dev_id": "elsys-eye-048163",
-                    "lorawan_device": {
-                        "app_eui": "70B3D57ED00358FF",
-                        "dev_eui": "A81758FFFE048163",
-                        "app_id": "vlab-sensor-network",
-                        "dev_id": "elsys-eye-048163",
-                        "dev_addr": "26015A7E",
-                        "nwk_s_key": "A2FC6EB34CB7283470493EDCC91559CA",
-                        "app_s_key": "6C4A89D0BFB24443EC1DA7743B385B04",
-                        "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
-                        "uses32_bit_f_cnt": true,
-                        "activation_constraints": "local"
-                    },
-                    "attributes": {
-                        "key": "",
-                        "value": ""
-                    }
-                }
-            }
+    "adeunis-test-2": {
+        "acp_id": "adeunis-test-2",
+        "acp_ts": 1604940570.062867,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "adeunis-test-2",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "0018B200000218CB",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "adeunis-test-2",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "9113BB5E4C69DB1BFC1FF5B5EAA98540",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
         }
-    ]
+    },
+    "adeunis-test-3": {
+        "acp_id": "adeunis-test-3",
+        "acp_ts": 1604940570.062872,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "adeunis-test-3",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "0018B200000218CD",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "adeunis-test-3",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "9113BB5E4C69DB1BFC1FF5B5EAA98540",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "adeunis-test-4": {
+        "acp_id": "adeunis-test-4",
+        "acp_ts": 1604940570.062873,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "adeunis-test-4",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "0018B200000218D0",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "adeunis-test-4",
+                "dev_addr": "26012EBC",
+                "nwk_s_key": "EAC50A4688862AC76828FD4FE23379B6",
+                "app_s_key": "5844E2570839B58E90B69CA7C3357EB9",
+                "app_key": "9113BB5E4C69DB1BFC1FF5B5EAA98540",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "description": "Radio test device for LoraWAN, #4 (ijl20)"
+        }
+    },
+    "arad-water-test-01": {
+        "acp_id": "arad-water-test-01",
+        "acp_ts": 1604940570.062874,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "arad-water-test-01",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "70B3D5A9F001BDDF",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "arad-water-test-01",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "112233445566778899AABBCCDDEEFF11",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "arad-water-test-02": {
+        "acp_id": "arad-water-test-02",
+        "acp_ts": 1604940570.062876,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "arad-water-test-02",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "70B3D5A9F001BDE7",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "arad-water-test-02",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "112233445566778899AABBCCDDEEFF11",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "arad-water-test-03": {
+        "acp_id": "arad-water-test-03",
+        "acp_ts": 1604940570.062877,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "arad-water-test-03",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "70B3D5A9F001C65C",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "arad-water-test-03",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "112233445566778899AABBCCDDEEFF11",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "diehl-water-test-01": {
+        "acp_id": "diehl-water-test-01",
+        "acp_ts": 1604940570.062878,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "diehl-water-test-01",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "90DFFB8187188416",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "diehl-water-test-01",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "26FFB4451DF02C5D5A08D66FABBDCD7B",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "diehl-water-test-02": {
+        "acp_id": "diehl-water-test-02",
+        "acp_ts": 1604940570.062879,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "diehl-water-test-02",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "90DFFB818718A037",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "diehl-water-test-02",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "BFF9B2865AA55CEEF9455A7EEB0A4D01",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "diehl-water-test-03": {
+        "acp_id": "diehl-water-test-03",
+        "acp_ts": 1604940570.06288,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "diehl-water-test-03",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "90DFFB81871882AE",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "diehl-water-test-03",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "232E26B812A982A51EEAA60EF090FE83",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-041ba8": {
+        "acp_id": "elsys-co2-041ba8",
+        "acp_ts": 1604940570.062881,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-041ba8",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE041BA8",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-041ba8",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-041ba9": {
+        "acp_id": "elsys-co2-041ba9",
+        "acp_ts": 1604940570.062882,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-041ba9",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE041BA9",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-041ba9",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "DCE62BB23CA148AF92F536DB2156D138",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-041baa": {
+        "acp_id": "elsys-co2-041baa",
+        "acp_ts": 1604940570.062884,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-041baa",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE041BAA",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-041baa",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-041bab": {
+        "acp_id": "elsys-co2-041bab",
+        "acp_ts": 1604940570.062885,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-041bab",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED00358FF",
+                "dev_eui": "A81758FFFE041BAB",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-041bab",
+                "dev_addr": "260122B8",
+                "nwk_s_key": "5C1FA4AA413B8111544B7A9BC19557F7",
+                "app_s_key": "96CB7D765A34F966E47D1BAE3BE7159F",
+                "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-0460ec": {
+        "acp_id": "elsys-co2-0460ec",
+        "acp_ts": 1604940570.062886,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-0460ec",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE0460EC",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-0460ec",
+                "dev_addr": "26016D85",
+                "nwk_s_key": "BD4FC2DC04C04A43037074601A4C159D",
+                "app_s_key": "363A71F06540F040669648446D10EEAA",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-0461e3": {
+        "acp_id": "elsys-co2-0461e3",
+        "acp_ts": 1604940570.062887,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-0461e3",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE0461E3",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-0461e3",
+                "dev_addr": "2601518D",
+                "nwk_s_key": "DFA7FA5309A9347247F5FFAC8E287CFC",
+                "app_s_key": "88049549BD9375C556CE613028FE3F87",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-0461e4": {
+        "acp_id": "elsys-co2-0461e4",
+        "acp_ts": 1604940570.062888,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-0461e4",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE0461E4",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-0461e4",
+                "dev_addr": "26014B16",
+                "nwk_s_key": "8C5C6FD4234FF2B83A6846CDA7389B73",
+                "app_s_key": "71A1552AF6EB4DFF3E8E10BC1AF83A64",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-0461e6": {
+        "acp_id": "elsys-co2-0461e6",
+        "acp_ts": 1604940570.062889,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-0461e6",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE0461E6",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-0461e6",
+                "dev_addr": "2601563F",
+                "nwk_s_key": "3A7E8643FB777FE37D638033AF7F7701",
+                "app_s_key": "C5063739AAD2BC74E0E1B7B0FF29995E",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-0461e7": {
+        "acp_id": "elsys-co2-0461e7",
+        "acp_ts": 1604940570.062892,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-0461e7",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE0461E7",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-0461e7",
+                "dev_addr": "260166DD",
+                "nwk_s_key": "C87E8DB2778398559D80B67E9A1CF99D",
+                "app_s_key": "421A2BC67E1A82471E677807DD16CB89",
+                "app_key": "909174CC7B377ED71B3C4B2FFBCF337F",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-0520a9": {
+        "acp_id": "elsys-co2-0520a9",
+        "acp_ts": 1604940570.062893,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-0520a9",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED00358FF",
+                "dev_eui": "A81758FFFE0520A9",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-0520a9",
+                "dev_addr": "26016C30",
+                "nwk_s_key": "CC1B9521E238DFCE21F1E9C08DD2C290",
+                "app_s_key": "41E42370E2BCCC7B43EA35905AEFF3E2",
+                "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-co2-0520aa": {
+        "acp_id": "elsys-co2-0520aa",
+        "acp_ts": 1604940570.062895,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-co2-0520aa",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED00358FF",
+                "dev_eui": "A81758FFFE0520AA",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-co2-0520aa",
+                "dev_addr": "26015EE7",
+                "nwk_s_key": "E90A853B6B410FE2BA54421CA834273B",
+                "app_s_key": "C06999654BA714DDC79DBE404A3218A6",
+                "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-ems-048f2b": {
+        "acp_id": "elsys-ems-048f2b",
+        "acp_ts": 1604940570.062896,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-ems-048f2b",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE048F2B",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-ems-048f2b",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-ems-0503de": {
+        "acp_id": "elsys-ems-0503de",
+        "acp_ts": 1604940570.062897,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-ems-0503de",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE0503DE",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-ems-0503de",
+                "dev_addr": "26015AFE",
+                "nwk_s_key": "73A09F0D51A95DFC830859D890BC2DDE",
+                "app_s_key": "5A9119EF9C9D6D518475C5713D9552A8",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "description": "Front door @ Lockdown Lab (replaces elsys-ems-049361)"
+        }
+    },
+    "elsys-ems-0503e1": {
+        "acp_id": "elsys-ems-0503e1",
+        "acp_ts": 1604940570.062898,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-ems-0503e1",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED00358FF",
+                "dev_eui": "A81758FFFE0503E1",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-ems-0503e1",
+                "dev_addr": "260140BF",
+                "nwk_s_key": "0D542038C26A90ABAD9D30E3D74FA149",
+                "app_s_key": "81EA20D94AA9019B433E4FEAAD8F2A2E",
+                "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-ems-0503e4": {
+        "acp_id": "elsys-ems-0503e4",
+        "acp_ts": 1604940570.062899,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-ems-0503e4",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED00358FF",
+                "dev_eui": "A81758FFFE0503E4",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-ems-0503e4",
+                "dev_addr": "26014F8D",
+                "nwk_s_key": "9F4950C8468AF1883045A664EE0BBD62",
+                "app_s_key": "BA577E31C52A4345BC2451FEDD81F979",
+                "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-ems-0503e5": {
+        "acp_id": "elsys-ems-0503e5",
+        "acp_ts": 1604940570.0629,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-ems-0503e5",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE0503E5",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-ems-0503e5",
+                "dev_addr": "260124B0",
+                "nwk_s_key": "FB041C9FCE038F6FBBC7DEF063880A30",
+                "app_s_key": "F143BC28B9AFC681EFEAF334B0C85B88",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "description": "Lockdown Lab window/door"
+        }
+    },
+    "elsys-eye-044501": {
+        "acp_id": "elsys-eye-044501",
+        "acp_ts": 1604940570.062902,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-eye-044501",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE044501",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-eye-044501",
+                "dev_addr": "260162BA",
+                "nwk_s_key": "2AE3ACC2F1643E1EFF256A71FE3B8BA4",
+                "app_s_key": "E807EDBFD0B0CFF48CBA229A556BD772",
+                "app_key": "E0F41C29B261D36AB536879886717394",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-eye-044504": {
+        "acp_id": "elsys-eye-044504",
+        "acp_ts": 1604940570.062903,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-eye-044504",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE044504",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-eye-044504",
+                "dev_addr": "26016FFC",
+                "nwk_s_key": "612A64792C736A8E80192BFBA1CACFE0",
+                "app_s_key": "170D55BA63E2B9556B7F0053C02C186F",
+                "app_key": "531296947E5559354252E63B4081F716",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-eye-048161": {
+        "acp_id": "elsys-eye-048161",
+        "acp_ts": 1604940570.062904,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-eye-048161",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED00358FF",
+                "dev_eui": "A81758FFFE048161",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-eye-048161",
+                "dev_addr": "26015FCF",
+                "nwk_s_key": "4C7BF91EEFA4CC76195DD3235895543F",
+                "app_s_key": "FFE0CED69750BA62E61743D9FF9490D8",
+                "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "elsys-eye-048163": {
+        "acp_id": "elsys-eye-048163",
+        "acp_ts": 1604940570.062906,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "elsys-eye-048163",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED00358FF",
+                "dev_eui": "A81758FFFE048163",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "elsys-eye-048163",
+                "dev_addr": "26016FDA",
+                "nwk_s_key": "BAEAD366B0F70E8835D30CF7402D91D1",
+                "app_s_key": "5E96C476B60455266832963C11C181A8",
+                "app_key": "22C905D1A45D1EAED8D950B915ECC8D8",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "feather-8x8-1157ed": {
+        "acp_id": "feather-8x8-1157ed",
+        "acp_ts": 1604940570.062907,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "feather-8x8-1157ed",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "9876B600001157ED",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "feather-8x8-1157ed",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "A4391D44BABCE8B697601CE09E5C9309",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "ijl20-adeunis-test": {
+        "acp_id": "ijl20-adeunis-test",
+        "acp_ts": 1604940570.062908,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "ijl20-adeunis-test",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "0018B2000000113E",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "ijl20-adeunis-test",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "9113BB5E4C69DB1BFC1FF5B5EAA98540",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "ijl20-co2-0366b0": {
+        "acp_id": "ijl20-co2-0366b0",
+        "acp_ts": 1604940570.062909,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "ijl20-co2-0366b0",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "A81758FFFE0366B0",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "ijl20-co2-0366b0",
+                "dev_addr": "26015771",
+                "nwk_s_key": "E616FA0D3B511F9FD5D35AEE4BD3B8FB",
+                "app_s_key": "B6796E8F646D036EDE60A159CDF9D3B0",
+                "app_key": "C377628FF1E0412967D6519C278F87F2",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "ijl20-sodaq-ttn": {
+        "acp_id": "ijl20-sodaq-ttn",
+        "acp_ts": 1604940570.06291,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "ijl20-sodaq-ttn",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "763A53FFB342FBD8",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "ijl20-sodaq-ttn",
+                "dev_addr": "26015A4D",
+                "nwk_s_key": "5D53121A072BADDDE7E98A0BAE7C8453",
+                "app_s_key": "F0862F3F4CA3511C5C77CEBAB10D3877",
+                "app_key": "3319726C100E49B6ECD2EEC552F1F5D9",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "jw35-dragino-ttn": {
+        "acp_id": "jw35-dragino-ttn",
+        "acp_ts": 1604940570.062911,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "jw35-dragino-ttn",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "00C92108DD8DD3AF",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "jw35-dragino-ttn",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "57CBC805870ED6417210AF18F5DD3BD4",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "jw35-sodaq-ttn": {
+        "acp_id": "jw35-sodaq-ttn",
+        "acp_ts": 1604940570.062912,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "jw35-sodaq-ttn",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "0004A30B001A20C0",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "jw35-sodaq-ttn",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "9D3E82AAA01AA1A001286587964BFDB2",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "lopy-8x8-3b9599": {
+        "acp_id": "lopy-8x8-3b9599",
+        "acp_ts": 1604940570.062913,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "lopy-8x8-3b9599",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED001AB65",
+                "dev_eui": "70B3D549983B9599",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "lopy-8x8-3b9599",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "BE6B69D0BFFE7F6A1D64A69BD7CCF1B3",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "rad-ath-003d0f": {
+        "acp_id": "rad-ath-003d0f",
+        "acp_ts": 1604940570.062915,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "rad-ath-003d0f",
+            "lorawan_device": {
+                "app_eui": "0101010101010101",
+                "dev_eui": "0080000004003D0F",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "rad-ath-003d0f",
+                "dev_addr": "26016263",
+                "nwk_s_key": "92F0D05B4042A0101418FEC4BD4161FA",
+                "app_s_key": "8CB7C3E040DE1C2AF3A7BCD77FC9A467",
+                "app_key": "24AC570C4480F14FA4462348792A9012",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    },
+    "rad-tilt-003d47": {
+        "acp_id": "rad-tilt-003d47",
+        "acp_ts": 1604940570.062916,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "rad-tilt-003d47",
+            "lorawan_device": {
+                "app_eui": "0101010101010101",
+                "dev_eui": "0080000004003D47",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "rad-tilt-003d47",
+                "dev_addr": "26016F5B",
+                "nwk_s_key": "C2B06CF27538EE48AC9C5FB3E35525EE",
+                "app_s_key": "1E624C4B715CB1E08719C7184583E7B0",
+                "app_key": "4EF16441D87A4D4FAC8771661DB40EC3",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Lockdown Lab Radiobridge High Precision IP67 Tilt Sensor "
+        }
+    },
+    "rad-wd-f7c5c9": {
+        "acp_id": "rad-wd-f7c5c9",
+        "acp_ts": 1604940570.062917,
+        "ttn_settings": {
+            "app_id": "cambridge-sensor-network2",
+            "dev_id": "rad-wd-f7c5c9",
+            "lorawan_device": {
+                "app_eui": "0101010101010101",
+                "dev_eui": "4491600000F7C5C9",
+                "app_id": "cambridge-sensor-network2",
+                "dev_id": "rad-wd-f7c5c9",
+                "dev_addr": "260140A6",
+                "nwk_s_key": "7B04FB88AD0574C962A29F0711169B75",
+                "app_s_key": "866790AA1367450565F715079ADE5681",
+                "app_key": "E9FF544D22B3764A812DBC0EBADEF68A",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            },
+            "description": "Some description of the device"
+        }
+    }
 }
