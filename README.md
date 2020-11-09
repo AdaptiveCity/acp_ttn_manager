@@ -25,7 +25,7 @@ python3 -m pip install -r requirements.txt
 ```
 
 ## Usage
-Create a `secrets/config.py` file with the following entries;
+Create a `secrets/settings.py` file with the following entries;
 
 ```
 URL = "https://eu.thethings.network:8094/applications/"
@@ -68,13 +68,13 @@ optional arguments:
 
   `-a APP_ID, --app_id APP_ID`: Application id of the TTN Application
   
-  `-r, --read`: Read all the registered devices and print to a file if filename provided, else print to stdout
+  `-r, --ttnread`: Read all the registered devices and print to a file if filename provided, else print to stdout
   
-  `-w, --write`: Register all devices in filename. Provide the filename using -f or --filename. If device already present then update settings 
+  `-w, --ttnwrite`: Register all devices in filename. Provide the filename using -f or --filename. If device already present then update settings 
   as provided in the file.
   
   `-d acp_id, --delete acp_id`: Delete the device with the acp_id
   
   `-m from_app_id, --migrate from_app_id`: Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a file separated by commas. Provide the filename using -f or --filename. If no file specified, then migrate all devices.
   
-  `-f FILENAME, --filename FILENAME`: Filename for the command requesting a file
+  `-f FILENAME, --jsonfile FILENAME`: Filename for the command requesting a file

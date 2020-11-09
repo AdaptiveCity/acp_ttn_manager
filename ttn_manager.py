@@ -1,4 +1,3 @@
-from requests.models import Response
 from ACPTTNManager import ACPTTNManager
 import json
 from datetime import datetime
@@ -10,72 +9,56 @@ def get_existing_device_details(json_file):
     existing_devices = {}
     with open(json_file) as jfile:
         json_data = json.load(jfile)
-        for sensor in json_data['sensors']:
-            existing_devices[sensor[list(sensor.keys())[0]]['acp_id']] = sensor[list(sensor.keys())[0]]
+        for sensor in json_data.keys():
+            existing_devices[sensor] = json_data[sensor]
 
     return existing_devices
 
 def set_device_entry(device, existing_device=None):
-    split_dev_id = device['dev_id'].split('-')
-    # print(split_dev_id)
-    device_type = split_dev_id[0]+'-'+split_dev_id[1]
     acp_ts = datetime.now().timestamp()
-    device_entry = ''
+    device_entry = {}
     if existing_device != None:
-        device_entry = {
-            device['dev_id']:{
-                "acp_id": device['dev_id'],
-                "acp_type_id": existing_device['acp_type_id'] if 'acp_type_id' in existing_device.keys() else device_type,
-                "acp_ts": acp_ts,
-                "crate_id": existing_device['crate_id'] if 'crate_id' in existing_device.keys() else "",
-                "acp_location": existing_device['acp_location'] if 'acp_location' in existing_device.keys() else {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
-                "ttn_settings": device
-            }
-        }
+        for key in existing_device.keys():
+            device_entry[key] = existing_device[key]
+        device_entry["acp_ts"] = acp_ts
+        device_entry["ttn_settings"] = device
     else:
         device_entry = {
-            device['dev_id']:{
                 "acp_id": device['dev_id'],
-                "acp_type_id": device_type,
                 "acp_ts": acp_ts,
-                "crate_id": "",
-                "acp_location": {
-                    "x": 0,
-                    "y": 0,
-                    "zf": 0,
-                    "f": 0,
-                    "system": "WGB"
-                },
                 "ttn_settings": device
             }
-        }
     return device_entry
 
+####################################################################
+# Read device information from TTN
+####################################################################
 def read(manager, json_file=None):
     devices = manager.get_all_devices()
+    
+    if len(devices) == 0:
+        print("No registered devices")
+        return
 
     if json_file == None:
-        sensors = {'sensors':[]}
+        sensors = {}
         for device in devices['devices']:
             device_entry = set_device_entry(device)
-            sensors['sensors'].append(device_entry)
+            sensors[device['dev_id']] = device_entry
         print(json.dumps(sensors, indent=4))
     else:
         existing_devices = get_existing_device_details(json_file) if os.path.exists(json_file) else {}
         opfile = open(json_file, 'w')
-        sensors = {'sensors':[]}
+        sensors = {}
         for device in devices['devices']:
             existing_device = existing_devices[device['dev_id']] if device['dev_id'] in existing_devices.keys() else None
             device_entry = set_device_entry(device, existing_device)
-            sensors['sensors'].append(device_entry)
+            sensors[device['dev_id']] = device_entry
         opfile.write(json.dumps(sensors, indent=4))
 
+####################################################################
+# Register/Update devices on TTN settings
+####################################################################
 def write(manager, json_file):
 
     devices = manager.get_all_devices()
@@ -86,8 +69,8 @@ def write(manager, json_file):
 
     with open(json_file) as jfile:
         json_data = json.load(jfile)
-        for sensor in json_data['sensors']:
-            ttn_settings = sensor[list(sensor.keys())[0]]['ttn_settings']
+        for sensor in json_data.keys():
+            ttn_settings = json_data[sensor]['ttn_settings']
             device = {
                 "altitude": ttn_settings['altitude'] if 'altitude' in ttn_settings.keys() else 0,
                 "app_id": ttn_settings['app_id'],
@@ -105,6 +88,9 @@ def delete(manager, acp_id):
     if response == {}:
         print('Device deleted')
 
+####################################################################
+# Migrate devices
+####################################################################
 def migrate(manager, from_app_id, acp_id_file=None):
 
     if acp_id_file == None:
@@ -118,6 +104,20 @@ def migrate(manager, from_app_id, acp_id_file=None):
 
     print(response)
 
+####################################################################
+# Load settings
+####################################################################
+def load_settings():
+    with open('secrets/settings.json', 'r') as settings_file:
+        settings_data = settings_file.read()
+
+    # parse file
+    settings = json.loads(settings_data)
+    return settings
+
+####################################################################
+# Setup command line argument parsing
+####################################################################
 def parse_init():
     parser = argparse.ArgumentParser(description='Import/export json data <-> TTN')
     group = parser.add_mutually_exclusive_group()
@@ -127,13 +127,13 @@ def parse_init():
                         required=True,
                         help='Application id of the TTN Application')
     
-    group.add_argument('-r', '--read',
+    group.add_argument('-r', '--ttnread',
                         action='store_true',
                         help='Read all the registered devices and print to a file if filename provided, else print to stdout')
     
-    group.add_argument('-w', '--write',
+    group.add_argument('-w', '--ttnwrite',
                         action='store_true',
-                        help='Register all devices in filename. Provide the filename using -f or --filename. If device already present then update settings as provided in the file.')
+                        help='Register all devices in filename. Provide the filename using -f or --jsonfile. If device already present then update settings as provided in the file.')
 
     group.add_argument('-d', '--delete',
                         nargs=1,
@@ -143,9 +143,9 @@ def parse_init():
     group.add_argument('-m', '--migrate',
                         nargs=1,
                         metavar='from_app_id',
-                        help='Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a file separated by commas. Provide the filename using -f or --filename. If no file specified, then migrate all devices.')
+                        help='Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a file separated by commas. Provide the filename using -f or --jsonfile. If no file specified, then migrate all devices.')
 
-    parser.add_argument('-f', '--filename',
+    parser.add_argument('-f', '--jsonfile',
                         nargs=1,
                         required='--write' in sys.argv or '-w' in sys.argv,
                         help='Filename for the command')           
@@ -158,24 +158,25 @@ if __name__ == '__main__':
     args = parser.parse_args()
                             
     app_id = args.app_id[0]
+    settings = load_settings()
 
-    manager = ACPTTNManager(app_id)
+    manager = ACPTTNManager(settings, app_id)
 
-    if args.read:
-        if args.filename:
-            read(manager, args.filename[0])
+    if args.ttnread:
+        if args.jsonfile:
+            read(manager, args.jsonfile[0])
         else:
             read(manager)
 
-    elif args.write:
-        write(manager, args.filename[0])
+    elif args.ttnwrite:
+        write(manager, args.jsonfile[0])
     
     elif args.delete:
         delete(manager, args.delete[0])
     
     elif args.migrate:
-        if args.filename:
-            migrate(manager, args.migrate[0], args.filename[0])
+        if args.jsonfile:
+            migrate(manager, args.migrate[0], args.jsonfile[0])
         else:
             migrate(manager, args.migrate[0])
 

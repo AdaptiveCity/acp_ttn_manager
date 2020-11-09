@@ -1,4 +1,3 @@
-import secrets.settings as config
 import json
 import requests
 
@@ -16,10 +15,12 @@ class ACPTTNManager:
 
     client = ''
 
-    def __init__(self, app_id):
+    def __init__(self, settings, app_id):
+        self.settings = settings
+
         self.client = Client(
-                        config.URL + config.TTN_APPLICATIONS[app_id]['app_id'], 
-                        {"Authorization": "Key "+config.TTN_APPLICATIONS[app_id]['access_key'], "Content-Type":"application/json"}
+                        self.settings['URL'] + self.settings['TTN_APPLICATIONS'][app_id]['app_id'],
+                        {"Authorization": "Key "+self.settings['TTN_APPLICATIONS'][app_id]['access_key'], "Content-Type":"application/json"}
                 )
 
     def get_app_details(self):
@@ -88,8 +89,8 @@ class ACPTTNManager:
         dev_ids: List containing the dev_id of all the devices to be migrated. Migrate all devices if empty
         '''
         migrate_client = Client(
-                                    url= config.URL + config.TTN_APPLICATIONS[from_app_id]['app_id'],
-                                    headers={"Authorization": "Key "+config.TTN_APPLICATIONS[from_app_id]['access_key'], "Content-Type":"application/json"}
+                                    url= self.settings['URL'] + self.settings['TTN_APPLICATIONS'][from_app_id]['app_id'],
+                                    headers={"Authorization": "Key "+self.settings['TTN_APPLICATIONS'][from_app_id]['access_key'], "Content-Type":"application/json"}
                             )
         response_list = []
         to_app_id = self.get_app_details()['app_id']
@@ -118,7 +119,7 @@ class ACPTTNManager:
     def get_new_device(self, device, to_app_id):
         migrate_device = {
                             "altitude": device['altitude'] if 'altitude' in device.keys() else 0,
-                            "app_id": config.TTN_APPLICATIONS[to_app_id]['app_id'],
+                            "app_id": self.settings['TTN_APPLICATIONS'][to_app_id]['app_id'],
                             "attributes": device['attributes'] if 'attributes' in device.keys() else {"key": "","value": ""},
                             "description": device['description'] if 'description' in device.keys() else "",
                             "dev_id": device['dev_id'],
@@ -127,7 +128,7 @@ class ACPTTNManager:
                             "lorawan_device": {
                                 "activation_constraints": device['lorawan_device']['activation_constraints'] if 'activation_constraints' in device.keys() else "local",
                                 "app_eui": device['lorawan_device']['app_eui'],
-                                "app_id": config.TTN_APPLICATIONS[to_app_id]['app_id'],
+                                "app_id": self.settings['TTN_APPLICATIONS'][to_app_id]['app_id'],
                                 "app_key": device['lorawan_device']['app_key'],
                                 "dev_eui": device['lorawan_device']['dev_eui'],
                                 "dev_id": device['dev_id'],
