@@ -60,13 +60,6 @@ def read(manager, json_file=None):
 # Register/Update devices on TTN settings
 ####################################################################
 def write(manager, json_file):
-
-    devices = manager.get_all_devices()
-    dev_id_list = []
-    if len(devices) > 0:
-        for device in devices['devices']:
-            dev_id_list.append(device['dev_id'])
-
     with open(json_file) as jfile:
         json_data = json.load(jfile)
         for sensor in json_data.keys():
@@ -81,12 +74,14 @@ def write(manager, json_file):
                 "longitude": ttn_settings['longitude'] if 'longitude' in ttn_settings.keys() else 0.0,
                 "lorawan_device": ttn_settings['lorawan_device']
             }
-            print(manager.register_devices([device]))
+            print(device['app_id'],': ',manager.register_devices([device]))
 
 def delete(manager, acp_id):
     response = manager.delete_device(acp_id)
     if response == {}:
         print('Device deleted')
+    else:
+        print(response['error'])
 
 ####################################################################
 # Migrate devices
@@ -99,6 +94,9 @@ def migrate(manager, from_app_id, acp_id_file=None):
         acp_id_list = []
         ip = open(acp_id_file)
         acp_id_list = ip.readlines()[0].strip().split(',')
+        if len(acp_id_list) == 0:
+            print('Empty file')
+            return
         response = manager.migrate_devices(from_app_id, acp_id_list)
         ip.close()
 
@@ -179,4 +177,7 @@ if __name__ == '__main__':
             migrate(manager, args.migrate[0], args.jsonfile[0])
         else:
             migrate(manager, args.migrate[0])
+
+    else:
+        print(manager.get_app_details())
 
