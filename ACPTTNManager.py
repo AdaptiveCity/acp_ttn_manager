@@ -101,7 +101,7 @@ class ACPTTNManager:
                 return "No registered devices to migrate"
 
             for device in devices['devices']:
-                response = ACPTTNManager.__migrate_device(device, self, migrate_client, to_app_id)
+                response = self.__migrate_device(device, migrate_client, to_app_id)
 
                 if response != 'Device added':
                     response_list.append(response)
@@ -113,7 +113,7 @@ class ACPTTNManager:
                     print(dev_id, ' not registered on ', from_app_id)
                     continue
 
-                response = ACPTTNManager.__migrate_device(device, self, migrate_client, to_app_id)
+                response = self.__migrate_device(device, migrate_client, to_app_id)
 
                 if response != 'Device added':
                     response_list.append(response)
@@ -151,7 +151,7 @@ class ACPTTNManager:
         return migrate_device
 
     # Migrate a device from the migrate client to the default client  
-    def __migrate_device(device, self, migrate_client, to_app_id):
+    def __migrate_device(self, device, migrate_client, to_app_id):
         dev_id = device['dev_id']
 
         new_device = self.get_new_device(device, to_app_id)
