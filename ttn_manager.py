@@ -142,7 +142,7 @@ def parse_init():
     group.add_argument('-m', '--migrate',
                         nargs=1,
                         metavar='from_app_id',
-                        help='Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a file separated by commas. Provide the filename using -f or --jsonfile. If no file specified, then migrate all devices.')
+                        help='Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a jsonfile in the format {"acp_ids": ["elsys-co2-044abc","elsys-co2-043abc"]}. Provide the filename using -f or --jsonfile. If no file specified, then migrate all devices.')
 
     parser.add_argument('-f', '--jsonfile',
                         nargs=1,
