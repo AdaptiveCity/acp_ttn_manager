@@ -93,7 +93,8 @@ def migrate(manager, from_app_id, acp_id_file=None):
     else:
         acp_id_list = []
         ip = open(acp_id_file)
-        acp_id_list = ip.readlines()[0].strip().split(',')
+        acp_ids = ip.read()
+        acp_id_list = json.loads(acp_ids)['acp_ids']
         if len(acp_id_list) == 0:
             print('Empty file')
             return

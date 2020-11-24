@@ -58,7 +58,7 @@ See the `test.py` file for examples.
 
 ### Using the provided script
 
-usage: `./ttn_manager.sh [-h] -a APP_ID [-r | -w | -d acp_id | -m from_app_id] [-f FILENAME]`
+usage: `./ttn_manager.sh [-h] -a APP_ID [-r | -w | -d acp_id | -m from_app_id] [-f JSONFILE]`
 
 Import/export json data <-> TTN
 
@@ -70,11 +70,21 @@ optional arguments:
   
   `-r, --ttnread`: Read all the registered devices and print to a file if filename provided, else print to stdout
   
-  `-w, --ttnwrite`: Register all devices in filename. Provide the filename using -f or --filename. If device already present then update settings 
+  `-w, --ttnwrite`: Register all devices in filename. Provide the filename using -f or --jsonfile. If device already present then update settings 
   as provided in the file.
   
   `-d acp_id, --delete acp_id`: Delete the device with the acp_id
   
-  `-m from_app_id, --migrate from_app_id`: Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a file separated by commas. Provide the filename using -f or --filename. If no file specified, then migrate all devices.
+  `-m from_app_id, --migrate from_app_id`: Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a jsonfile in the format listed below. Provide the filename using -f or --jsonfile. If no file specified, then migrate all devices.
   
-  `-f FILENAME, --jsonfile FILENAME`: Filename for the command requesting a file
+  `-f JSONFILE, --jsonfile JSONFILE`: Filename for the command requesting a file
+
+**Migration file format**
+```
+{
+    "acp_ids": [
+        "elsys-co2-044abc",
+        "elsys-co2-043abc"
+    ]
+}
+```
