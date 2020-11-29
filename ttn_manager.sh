@@ -41,9 +41,14 @@ def set_device_entry(device, existing_device=None):
 ####################################################################
 # Read device information from TTN
 ####################################################################
-def read(manager, json_file=None):
+def read(manager, json_file=None, device_id=None):
     # Here is the TTN read
-    devices = manager.get_all_devices()
+    if device_id:
+        device = manager.get_device_details(device_id)
+        devices = {}
+        devices['devices'] = [ device ]
+    else:
+        devices = manager.get_all_devices()
 
     if len(devices) == 0:
         print("No registered devices",file=sys.stderr,flush=True)
@@ -52,8 +57,11 @@ def read(manager, json_file=None):
     if json_file == None:
         sensors = {}
         for device in devices['devices']:
-            device_entry = set_device_entry(device)
-            sensors[device['dev_id']] = device_entry
+            if 'error' in device:
+                print('Device read error from TTN: {}'.format(device), file=sys.stderr, flush=True)
+            else:
+                device_entry = set_device_entry(device)
+                sensors[device['dev_id']] = device_entry
         print(json.dumps(sensors, indent=4))
     else:
         existing_devices = get_existing_device_details(json_file) if os.path.exists(json_file) else {}
@@ -68,22 +76,31 @@ def read(manager, json_file=None):
 ####################################################################
 # Register/Update devices on TTN settings
 ####################################################################
-def write(manager, json_file):
+def write(manager, json_file, device_id=None):
     with open(json_file) as jfile:
         json_data = json.load(jfile)
-        for sensor in json_data.keys():
-            ttn_settings = json_data[sensor]['ttn_settings']
-            device = {
-                "altitude": ttn_settings['altitude'] if 'altitude' in ttn_settings.keys() else 0,
-                "app_id": ttn_settings['app_id'],
-                "attributes": ttn_settings['attributes'] if 'attributes' in ttn_settings.keys() else {"key": "","value": ""},
-                "description": ttn_settings['description'] if 'description' in ttn_settings.keys() else "",
-                "dev_id": ttn_settings['dev_id'],
-                "latitude": ttn_settings['latitude'] if 'latitude' in ttn_settings.keys() else 0.0,
-                "longitude": ttn_settings['longitude'] if 'longitude' in ttn_settings.keys() else 0.0,
-                "lorawan_device": ttn_settings['lorawan_device']
-            }
-            print(device['app_id'],': ',manager.register_devices([device]))
+        # We will track whether the ttn app was updated
+        app_updated=False
+        for json_id in json_data.keys():
+            if device_id is None or device_id==json_id:
+                app_updated=True
+                ttn_settings = json_data[json_id]['ttn_settings']
+                device = {
+                    "altitude": ttn_settings['altitude'] if 'altitude' in ttn_settings.keys() else 0,
+                    "app_id": ttn_settings['app_id'],
+                    "attributes": ttn_settings['attributes'] if 'attributes' in ttn_settings.keys() else {"key": "","value": ""},
+                    "description": ttn_settings['description'] if 'description' in ttn_settings.keys() else "",
+                    "dev_id": ttn_settings['dev_id'],
+                    "latitude": ttn_settings['latitude'] if 'latitude' in ttn_settings.keys() else 0.0,
+                    "longitude": ttn_settings['longitude'] if 'longitude' in ttn_settings.keys() else 0.0,
+                    "lorawan_device": ttn_settings['lorawan_device']
+                }
+                print(device['app_id'],': ',manager.register_devices([device]))
+        if not app_updated:
+            if device_id:
+                print(f"TTN application not updated (--id {device_id} not found?)", file=sys.stderr)
+            else:
+                print("Warning: TTN application not updated.", file=sys.stderr)
 
 def delete(manager, acp_id):
     response = manager.delete_device(acp_id)
@@ -136,13 +153,11 @@ def parse_init():
                         help='Application id of the TTN Application')
 
     parser.add_argument('-f', '--jsonfile',
-                        nargs=1,
                         required='--write' in sys.argv or '-w' in sys.argv,
                         metavar='<JSON filename>',
                         help='Filename for JSON sensor registration data to be written to.')
 
     parser.add_argument('--id',
-                        nargs=1,
                         metavar='<acp_id>',
                         help="Sensor identifier (e.g. 'ijl20-sodaq-ttn') to limit scope to only this sensor")
 
@@ -158,7 +173,6 @@ def parse_init():
                         help='Register all devices in filename. Provide the filename using -f or --jsonfile. If device already present then update settings as provided in the file.')
 
     group.add_argument('-d', '--delete',
-                        nargs=1,
                         metavar='<acp_id>',
                         help='Delete the device with the acp_id')
 
@@ -187,16 +201,13 @@ if __name__ == '__main__':
     manager = ACPTTNManager(settings, app_id)
 
     if args.ttnread:
-        if args.jsonfile:
-            read(manager, args.jsonfile[0])
-        else:
-            read(manager)
+            read(manager, args.jsonfile, args.id)
 
     elif args.ttnwrite:
-        write(manager, args.jsonfile[0])
+        write(manager, args.jsonfile, args.id)
 
     elif args.delete:
-        delete(manager, args.delete[0])
+        delete(manager, args.delete)
 
     elif args.migrate:
         if args.jsonfile:

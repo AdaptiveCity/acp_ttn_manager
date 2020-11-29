@@ -58,28 +58,124 @@ See the `test.py` file for examples.
 
 ### Using the provided script
 
-usage: `./ttn_manager.sh [-h] -a APP_ID [-r | -w | -d acp_id | -m from_app_id] [-f JSONFILE]`
+usage:
+```
+./ttn_manager.sh [--help] --app_id APP_ID
+        [--ttnread | --ttnwrite | --delete <acp_id> | --migrate <from_app_id>] [--jsonfile JSONFILE]
+        [--id <acp_id>]
 
 Import/export json data <-> TTN
 
 optional arguments:
 
-  `-h, --help`: show this help message and exit
+  --help: show this help message and exit
 
-  `-a APP_ID, --app_id APP_ID`: Application id of the TTN Application
-  
-  `-r, --ttnread`: Read all the registered devices and print to a file if filename provided, else print to stdout
-  
-  `-w, --ttnwrite`: Register all devices in filename. Provide the filename using -f or --jsonfile. If device already present then update settings 
-  as provided in the file.
-  
-  `-d acp_id, --delete acp_id`: Delete the device with the acp_id
-  
-  `-m from_app_id, --migrate from_app_id`: Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a jsonfile in the format listed below. Provide the filename using -f or --jsonfile. If no file specified, then migrate all devices.
-  
-  `-f JSONFILE, --jsonfile JSONFILE`: Filename for the command requesting a file
+  --app_id <APP_ID>: Application id of the TTN Application
 
-**Migration file format**
+  --ttnread: Read all the registered devices and print to a file if filename provided, else
+             print to stdout
+
+  --ttnwrite: Register all devices in filename. Provide the filename using -f or --jsonfile.
+              If device already present then update settings as provided in the file.
+
+  --delete <acp_id>: Delete the device with the acp_id
+
+  --migrate <from_app_id>: Migrate devices listed in filename from the from_app_id application to
+             the one specified by -a. All devices to be migrated should have their acp_id in a
+             jsonfile in the format listed below. Provide the filename using -f or --jsonfile.
+             If no file specified, then migrate all devices.
+
+  --jsonfile <JSONFILE>: Filename for the command requesting a file
+
+  --id <acp_id>`: limits scope of command to a given TTN device id.
+```
+
+## Examples
+
+```
+cd ~/acp_ttn_manager
+source venv/bin/activate
+```
+
+In all these examples the uploaded/downloaded information will look like:
+```
+{
+    "elsys-co2-045xxx": {
+        "acp_id": "elsys-co2-045xxx",
+        "acp_ts": "1606644010.042376",
+        "ttn_settings": {
+            "app_id": "vlab-sensor-network",
+            "dev_id": "elsys-co2-045xxx",
+            "lorawan_device": {
+                "app_eui": "70B3D57ED00358FF",
+                "dev_eui": "A81758FFFE046777",
+                "app_id": "vlab-sensor-network",
+                "dev_id": "elsys-co2-045xxx",
+                "dev_addr": "",
+                "nwk_s_key": "",
+                "app_s_key": "",
+                "app_key": "22C905D1A45D1EEED8D950B915ECC8D8",
+                "uses32_bit_f_cnt": true,
+                "activation_constraints": "local"
+            },
+            "attributes": {
+                "key": "",
+                "value": ""
+            }
+        }
+    }
+    ... followed by similar device entries
+}
+```
+
+### Download all TTN device registrations for an application to stdout
+
+```
+./ttn_manager.sh --ttnread --app_id vlab-sensor-network
+```
+
+### Download all TTN device registrations for an application to a file
+
+```
+./ttn_manager.sh --ttnread --app_id vlab-sensor-network --jsonfile vlab_devices.json
+```
+
+**Note that if `vlab_devices.json` already exists, then the TTN settings will be MERGED
+into that file **
+
+### Download TTN registration data for a single device
+
+```
+./ttn_manager.sh --ttnread --app_id vlab-sensor-network --id elsys-co2-045xxx
+```
+
+A `--jsonfile` parameter can also be give, as in the prior example.
+
+### Upload device registrations to TTN (i.e. register devices to an application)
+
+```
+./ttn_manager.sh --ttnwrite --app_id vlab-sensor-network --jsonfile my_devices.json
+```
+
+### Upload a single device registration to TTN (i.e. register a single device)
+
+```
+./ttn_manager.sh --ttnwrite --app_id vlab-sensor-network --jsonfile my_devices.json --id elsys-co2-045xxx
+```
+
+### Migrate all devices from one TTN application to another
+
+```
+./ttn_manager --migrate vlab-sensor-network --app_id my-new-app
+```
+
+### Migrate selected devices from one TTN application to another
+
+```
+./ttn_manager --migrate vlab-sensor-network --app_id my-new-app --jsonfile device_ids.json
+```
+
+Where `device_ids.json` could be:
 ```
 {
     "acp_ids": [
