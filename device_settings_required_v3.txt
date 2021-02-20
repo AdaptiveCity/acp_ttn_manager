@@ -1,0 +1,110 @@
+{
+   "end_device":{
+      "ids":{
+         "device_id":"test-device-1",
+         "dev_eui":"A81758FFFE044BAB",
+         "join_eui":"70B3D57ED00358FF"
+      },
+      "join_server_address":"eu1.cloud.thethings.network",
+      "network_server_address":"eu1.cloud.thethings.network",
+      "application_server_address":"eu1.cloud.thethings.network",
+      "name":"test device"
+   },
+   "field_mask":{
+      "paths":[
+         "join_server_address",
+         "network_server_address",
+         "application_server_address",
+         "ids.dev_eui",
+         "ids.join_eui",
+         "name"
+      ]
+   }
+}
+
+{
+   "end_device":{
+      "multicast":false,
+      "supports_join":true,
+      "lorawan_version":"1.0.3",
+      "ids":{
+         "device_id":"test-device-1",
+         "dev_eui":"A81758FFFE044BAB",
+         "join_eui":"70B3D57ED00358FF"
+      },
+      "mac_settings":{
+         "supports_32_bit_f_cnt":true
+      },
+      "supports_class_c":false,
+      "supports_class_b":false,
+      "lorawan_phy_version":"1.0.3-a",
+      "frequency_plan_id":"EU_863_870_TTN"
+   },
+   "field_mask":{
+      "paths":[
+         "multicast",
+         "supports_join",
+         "lorawan_version",
+         "ids.device_id",
+         "ids.dev_eui",
+         "ids.join_eui",
+         "mac_settings.supports_32_bit_f_cnt",
+         "supports_class_c",
+         "supports_class_b",
+         "lorawan_phy_version",
+         "frequency_plan_id"
+      ]
+   }
+}
+
+{
+   "end_device":{
+      "ids":{
+         "device_id":"test-device-1",
+         "dev_eui":"A81758FFFE044BAB",
+         "join_eui":"70B3D57ED00358FF"
+      }
+   },
+   "field_mask":{
+      "paths":[
+         "ids.device_id",
+         "ids.dev_eui",
+         "ids.join_eui"
+      ]
+   }
+}
+
+{
+   "end_device":{
+      "ids":{
+         "device_id":"test-device-1",
+         "dev_eui":"A81758FFFE044BAB",
+         "join_eui":"70B3D57ED00358FF"
+      },
+      "network_server_address":"eu1.cloud.thethings.network",
+      "application_server_address":"eu1.cloud.thethings.network",
+      "network_server_kek_label":"",
+      "application_server_kek_label":"",
+      "application_server_id":"",
+      "net_id":null,
+      "root_keys":{
+         "app_key":{
+            "key":"22C905D1A45D1EAED8D950B915ECC8D8"
+         }
+      }
+   },
+   "field_mask":{
+      "paths":[
+         "network_server_address",
+         "application_server_address",
+         "ids.device_id",
+         "ids.dev_eui",
+         "ids.join_eui",
+         "network_server_kek_label",
+         "application_server_kek_label",
+         "application_server_id",
+         "net_id",
+         "root_keys.app_key.key"
+      ]
+   }
+}
