@@ -1,5 +1,4 @@
 import json
-from sys import setdlopenflags, settrace
 import requests
 
 # Class used to define a TTN Application client.
