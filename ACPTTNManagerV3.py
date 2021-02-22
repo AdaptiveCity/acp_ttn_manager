@@ -38,9 +38,40 @@ class ACPTTNManagerV3:
         '''
         if client == None:
             client = self.client
-        response = requests.get(client.url+"/devices",headers=client.headers)
+        
+        if self.client.version == '2':
+            response = requests.get(client.url+"/devices",headers=client.headers)
+            return response.json()
+        
+        tmp_split = self.client.url.split('/')
+        js_url = '/'.join(tmp_split[:-2])+'/js/'+'/'.join(tmp_split[-2:])
+        ns_url = '/'.join(tmp_split[:-2])+'/ns/'+'/'.join(tmp_split[-2:])
 
-        return response.json()
+        field_mask_is = ','.join(self.settings['ID_SERVER_MASKS']['paths'])
+        field_mask_js = ','.join(self.settings['JOIN_SERVER_MASKS']['paths'])
+        field_mask_ns = ','.join(self.settings['NETWORK_SERVER_MASKS']['paths'])
+
+        response_is = requests.get(client.url+"/devices?field_mask="+field_mask_is,headers=client.headers)
+
+        end_devices = {'end_devices':[]}
+
+        for device in response_is.json()['end_devices']:
+            device_id = device['ids']['device_id']
+            response_js = requests.get(js_url+"/devices/"+device_id+"?field_mask="+field_mask_js,headers=client.headers)
+            response_ns = requests.get(ns_url+"/devices/"+device_id+"?field_mask="+field_mask_ns,headers=client.headers)
+            
+            js_dict = response_js.json()
+            ns_dict = response_ns.json()
+
+            for key in js_dict.keys():
+                device[key] = js_dict[key]
+            
+            for key in ns_dict.keys():
+                device[key] = ns_dict[key]
+
+            end_devices['end_devices'].append(device)
+
+        return end_devices
         
 
     def get_device_details(self, device_id, client=None):
@@ -50,9 +81,37 @@ class ACPTTNManagerV3:
         '''
         if client == None:
             client = self.client
-        response = requests.get(client.url+"/devices/"+device_id,headers=client.headers)
 
-        return response.json()
+        if self.client.version == '2':
+            response = requests.get(client.url+"/devices/"+device_id,headers=client.headers)
+            return response.json()
+
+        tmp_split = self.client.url.split('/')
+        js_url = '/'.join(tmp_split[:-2])+'/js/'+'/'.join(tmp_split[-2:])
+        ns_url = '/'.join(tmp_split[:-2])+'/ns/'+'/'.join(tmp_split[-2:])
+
+        field_mask_is = ','.join(self.settings['ID_SERVER_MASKS']['paths'])
+        field_mask_js = ','.join(self.settings['JOIN_SERVER_MASKS']['paths'])
+        field_mask_ns = ','.join(self.settings['NETWORK_SERVER_MASKS']['paths'])
+
+        response_is = requests.get(client.url+"/devices/"+device_id+"?field_mask="+field_mask_is,headers=client.headers)
+
+        response_js = requests.get(js_url+"/devices/"+device_id+"?field_mask="+field_mask_js,headers=client.headers)
+        response_ns = requests.get(ns_url+"/devices/"+device_id+"?field_mask="+field_mask_ns,headers=client.headers)
+        
+        device = response_is.json()
+        js_dict = response_js.json()
+        ns_dict = response_ns.json()
+
+        for key in js_dict.keys():
+            device[key] = js_dict[key]
+        
+        for key in ns_dict.keys():
+            device[key] = ns_dict[key]
+        
+        return device
+        
+
 
     def register_device(self, device_settings):
         '''
@@ -67,12 +126,12 @@ class ACPTTNManagerV3:
         tmp_split = self.client.url.split('/')
 
         ### Register on End Device registry
-        response_ed = requests.post(self.client.url+"/devices", headers=self.client.headers, data=json.dumps(device['ed']))
+        response_is = requests.post(self.client.url+"/devices", headers=self.client.headers, data=json.dumps(device['is']))
         response_js, response_ns, response_as = '', '', ''
-        response_text = response_ed.text
+        response_text = response_is.text
         
         ### Register on Join Server registry
-        if response_ed.status_code == 200:
+        if response_is.status_code == 200:
             js_url = '/'.join(tmp_split[:-2])+'/js/'+'/'.join(tmp_split[-2:])+"/devices/"+device_settings['ids']['device_id']
             response_js = requests.put(js_url, headers=self.client.headers, data=json.dumps(device['js']))
             response_text += response_js.text
@@ -123,6 +182,7 @@ class ACPTTNManagerV3:
             client = self.client
         if self.client.version == '2':
             response = requests.delete(client.url+"/devices/"+dev_id, headers=client.headers)
+            return response.json()
         else:
             tmp_split = self.client.url.split('/')
             
@@ -167,7 +227,7 @@ class ACPTTNManagerV3:
 
         device = {}
 
-        device['ed'] = {
+        device['is'] = {
             "end_device": {
                 "ids": {
                     "device_id": device_settings['ids']['device_id'],
@@ -200,21 +260,21 @@ class ACPTTNManagerV3:
 
         device['ns'] = {
             "end_device": {
-                "multicast": device_settings['multicast'] if 'multicast' in device_settings.keys() else False,
+                "frequency_plan_id": device_settings['frequency_plan_id'] if 'frequency_plan_id' in device_settings.keys() else self.settings['FREQUENCY_PLAN'],
                 "supports_join": device_settings['supports_join'] if 'supports_join' in device_settings.keys() else True,
-                "lorawan_version": device_settings['lorawan_version'],
+                "lorawan_version": device_settings['lorawan_version'],                
+                "lorawan_phy_version": device_settings['lorawan_phy_version'] if 'lorawan_phy_version' in device_settings.keys() else device_settings['lorawan_version']+"-a",
                 "ids":{
                     "device_id": device_settings['ids']['device_id'],
                     "dev_eui": device_settings['ids']['dev_eui'],
                     "join_eui": device_settings['ids']['join_eui'] if 'join_eui' in device_settings['ids'].keys() else "0000000000000000"
                 },
-                "mac_settings":{
-                    "supports_32_bit_f_cnt": device_settings['supports_32_bit_f_cnt'] if 'supports_32_bit_f_cnt' in device_settings.keys() else True
+                "mac_settings": device_settings['mac_settings'] if 'mac_settings' in device_settings.keys() else {
+                    "supports_32_bit_f_cnt": True
                 },
                 "supports_class_c": device_settings['supports_class_c'] if 'supports_class_c' in device_settings.keys() else False,
                 "supports_class_b": device_settings['supports_class_b'] if 'supports_class_b' in device_settings.keys() else False,
-                "lorawan_phy_version": device_settings['lorawan_phy_version'] if 'lorawan_phy_version' in device_settings.keys() else device_settings['lorawan_version']+"-a",
-                "frequency_plan_id": device_settings['frequency_plan_id'] if 'frequency_plan_id' in device_settings.keys() else self.settings['FREQUENCY_PLAN']
+                "multicast": device_settings['multicast'] if 'multicast' in device_settings.keys() else False             
             }
         }
 
