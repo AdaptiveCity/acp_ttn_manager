@@ -10,7 +10,7 @@ ACP TTN Manager provides means to manage TTN application and devices. It support
 
 ## Installation
 
-Ensure that both the default application and the application from which devices are being migrated have the same `APP EUI`.
+Use ttn_manager_v3.sh which supports TTN V3.
 
 You would need Python 3 for running.
 
@@ -25,24 +25,70 @@ python3 -m pip install -r requirements.txt
 ```
 
 ## Usage
-Create a `secrets/settings.py` file with the following entries;
+Create a `secrets/settings_v3.json` file with the following entries;
 
 ```
-URL = "https://eu.thethings.network:8094/applications/"
+{
+    "SERVER_ADDRESS": "eu.ttn.example.com",
+    "FREQUENCY_PLAN": "EU_863_870_TTN",
+    "LORAWAN_VERSION": "1.0.3",
+    "URLS" : {
+        "2" : {
+            "url" : "https://eu.ttn.example.com:8094/applications/"           
+        },
+        "3" : {
+            "url" : "https://eu1.ttn.example.com/api/v3/applications/"            
+        }
 
-TTN_APPLICATIONS = {
-                        'app_id1' : {
-                            'app_id' : "app_id1",
-                            'access_key' : "accesskey1",
-                            'app_eui' : "appeui1"
+    },
+    "TTN_APPLICATIONS" : {
+                        "appid1" : {
+                            "version":2,
+                            "auth_type": "Key",
+                            "app_id" : "appid1",
+                            "access_key" : "key",
+                            "app_eui" : "0000000000000000"
                         },
 
-                        'app_id2' : {
-                            'app_id' : "app_id2",
-                            'access_key' : "accesskey2",
-                            'app_eui' : "appeui2"
+                        "appid1" : {
+                            "version":3,
+                            "auth_type": "Bearer",
+                            "app_id" : "appid",
+                            "access_key" : "key"
                         }
-                    }
+                    },
+    "ID_SERVER_MASKS":{
+        "paths":[
+            "join_server_address",
+            "network_server_address",
+            "application_server_address",
+            "ids.dev_eui",
+            "ids.join_eui",
+            "name"
+         ]
+    },
+    "NETWORK_SERVER_MASKS":{
+        "paths":[
+           "multicast",
+           "supports_join",
+           "lorawan_version",
+           "mac_settings.supports_32_bit_f_cnt",
+           "supports_class_c",
+           "supports_class_b",
+           "lorawan_phy_version",
+           "frequency_plan_id"
+        ]
+    },
+    "JOIN_SERVER_MASKS":{
+        "paths":[
+           "network_server_kek_label",
+           "application_server_kek_label",
+           "application_server_id",
+           "net_id",
+           "root_keys.app_key.key"
+        ]
+     }
+}
 ```
 ### Usage with your own python code
 Import the ACPTTNManager class and use the following class methods for the required functionalities
@@ -50,7 +96,7 @@ Import the ACPTTNManager class and use the following class methods for the requi
 1. `get_app_details()`: Return the TTN Application object
 2. `get_all_devices(client)`: Return all devices registered on the specified client application. Uses default client if no client specified.
 3. `get_device_details(device_id, client)`: Return the device object corresponding to 'device_id' on the specified client application. Uses default client if no client specified.
-4. `register_devices(devices)`: Register all devices contained in the list 'devices'. All list elements should be dictionaries of the format defined at *https://www.thethingsnetwork.org/docs/applications/manager/api.html*. If device is already present then update device settings.
+4. `register_device(device_settings)`: Register a device with the details provided in device_settings. If device is already present then update device settings.
 5. `delete_device(dev_id, client)`: Delete all devices whose dev_id are in 'dev_ids'.  Uses default client if no client specified. Delete all devices if no dev_ids specified.
 6. `migrate_devices(dev_ids)`: Migrate a set of devices from a TTN application to the default application of the class. Migrate all devices if no dev_ids specified.
 
@@ -60,7 +106,7 @@ See the `test.py` file for examples.
 
 usage:
 ```
-./ttn_manager.sh [--help] --app_id APP_ID
+./ttn_manager.sh [--help] --app_id APP_ID --ttn_version TTN VERSION
         [--ttnread | --ttnwrite | --delete <acp_id> | --migrate <from_app_id>] [--jsonfile JSONFILE]
         [--id <acp_id>]
 
@@ -71,6 +117,8 @@ optional arguments:
   --help: show this help message and exit
 
   --app_id <APP_ID>: Application id of the TTN Application
+
+  --ttn_version <TTN VERSION>: TTN Version Number
 
   --ttnread: Read all the registered devices and print to a file if filename provided, else
              print to stdout
@@ -98,6 +146,7 @@ source venv/bin/activate
 ```
 
 In all these examples the uploaded/downloaded information will look like:
+<br> V2 device
 ```
 {
     "elsys-co2-045xxx": {
@@ -127,17 +176,57 @@ In all these examples the uploaded/downloaded information will look like:
     ... followed by similar device entries
 }
 ```
+<br> V3 device
+```
+"elsys-co2-045xxx": {
+        "acp_id":"elsys-co2-045xxx",
+        "acp_ts":1604930667.132143,
+        "ttn_settings":{
+           "ids":{
+              "device_id":"elsys-co2-045xxx",
+              "application_ids":{
+                 "application_id":"vlab-sensor-network"
+              },
+              "dev_eui":"A81758FFFE045xxx",
+              "join_eui":"70B3D57ED00358FF"
+           },
+           "created_at":"0001-01-01T00:00:00Z",
+           "updated_at":"0001-01-01T00:00:00Z",
+           "name":"elsys-co2-043abc",
+           "description":"Elsys Test Device",
+           "attributes":{
+              "key":"",
+              "value":""
+           },
+           "lorawan_version":"1.0.3",
+           "lorawan_phy_version":"1.0.3-a",
+           "frequency_plan_id":"EU_863_870_TTN",
+           "supports_join":true,
+           "root_keys":{
+              "app_key":{
+                 "key":"22C905D1A45D1EAED8D950B915ECC8D8"
+              }
+           },
+           "mac_settings":{
+              "rx1_delay":{
+                 "value":1
+              },
+              "supports_32_bit_f_cnt":true
+           }
+        }
+    }
+```
 
 ### Download all TTN device registrations for an application to stdout
 
 ```
-./ttn_manager.sh --ttnread --app_id vlab-sensor-network
+./ttn_manager_v3.sh --ttnread --app_id vlab-sensor-network --ttn_version 2
 ```
 
 ### Download all TTN device registrations for an application to a file
 
 ```
-./ttn_manager.sh --ttnread --app_id vlab-sensor-network --jsonfile vlab_devices.json
+./ttn_manager_v3.sh --ttnread --app_id vlab-sensor-network  --ttn_version 2 --jsonfile vlab_devices.json
 ```
 
 **Note that if `vlab_devices.json` already exists, then the TTN settings will be MERGED
@@ -146,7 +235,7 @@ into that file **
 ### Download TTN registration data for a single device
 
 ```
-./ttn_manager.sh --ttnread --app_id vlab-sensor-network --id elsys-co2-045xxx
+./ttn_manager_v3.sh --ttnread --app_id vlab-sensor-network --ttn_version 2 --id elsys-co2-045xxx
 ```
 
 A `--jsonfile` parameter can also be give, as in the prior example.
@@ -154,25 +243,25 @@ A `--jsonfile` parameter can also be give, as in the prior example.
 ### Upload device registrations to TTN (i.e. register devices to an application)
 
 ```
-./ttn_manager.sh --ttnwrite --app_id vlab-sensor-network --jsonfile my_devices.json
+./ttn_manager_v3.sh --ttnwrite --app_id vlab-sensor-network --ttn_version 2 --jsonfile my_devices.json
 ```
 
 ### Upload a single device registration to TTN (i.e. register a single device)
 
 ```
-./ttn_manager.sh --ttnwrite --app_id vlab-sensor-network --jsonfile my_devices.json --id elsys-co2-045xxx
+./ttn_manager_v3.sh --ttnwrite --app_id vlab-sensor-network --ttn_version 2 --jsonfile my_devices.json --id elsys-co2-045xxx
 ```
 
 ### Migrate all devices from one TTN application to another
 
 ```
-./ttn_manager --migrate vlab-sensor-network --app_id my-new-app
+./ttn_manager_v3.sh --migrate vlab-sensor-network --app_id my-new-app --ttn_version 2
 ```
 
 ### Migrate selected devices from one TTN application to another
 
 ```
-./ttn_manager --migrate vlab-sensor-network --app_id my-new-app --jsonfile device_ids.json
+./ttn_manager_v3.sh --migrate vlab-sensor-network --app_id my-new-app --ttn_version 2 --jsonfile device_ids.json
 ```
 
 Where `device_ids.json` could be:

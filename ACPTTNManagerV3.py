@@ -115,8 +115,7 @@ class ACPTTNManagerV3:
 
     def register_device(self, device_settings):
         '''
-        Register all devices contained in the list 'devices'
-        devices: A list of device dictionaries of the form defined at https://www.thethingsnetwork.org/docs/applications/manager/api.html
+        Register a device with the details provided in device_settings
         '''
         response_text = ''
         if self.client.version == '2':
@@ -350,7 +349,10 @@ class ACPTTNManagerV3:
         return device
         
     def migrate_devices(self, from_app_id, dev_ids = None):
-        
+        '''
+        Migrate a set of devices from a TTN application with id from_app_id to the default application of the class
+        dev_ids: List containing the dev_id of all the devices to be migrated. Migrate all devices if None
+        '''
         from_app_version = str(self.settings['TTN_APPLICATIONS'][from_app_id]['version'])
         device_key = 'devices' if from_app_version == '2' else 'end_devices'
 
