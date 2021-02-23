@@ -17,8 +17,8 @@ def load_settings():
 # device = manager.get_device_details("elsys-co2-041bab")
 # manager.migrate_devices('vlab-sensor-network-2')
 
-manager = ACPTTNManagerV3(load_settings(), 'cambridgesensornetwork', '3')
-# manager = ACPTTNManagerV3(load_settings(), 'vlab-sensor-network', '2')
+# manager = ACPTTNManagerV3(load_settings(), 'cambridgesensornetwork', '3')
+manager = ACPTTNManagerV3(load_settings(), 'vlab-sensor-network', '2')
 
 app = manager.get_app_details()
 # devices = manager.get_all_devices()
