@@ -251,7 +251,7 @@ URL: https://eu1.cloud.thethings.network/api/v3/as/applications/cambridgesensorn
   }
 }
 ```
-It should be noted that the *field_maks* field is optional and registration works fine without it. Also, while registering a device if the registration fails for one server for some reason, it needs to be deleted from all the previously registered servers before a retry.
+Also, while registering a device if the registration fails for one server for some reason, it needs to be deleted from all the previously registered servers before a retry.
 
 ### Deleting Device
 1. V2 had a single delete call.
