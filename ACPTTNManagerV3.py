@@ -39,11 +39,11 @@ class ACPTTNManagerV3:
         if client == None:
             client = self.client
         
-        if self.client.version == '2':
+        if client.version == '2':
             response = requests.get(client.url+"/devices",headers=client.headers)
             return response.json()
         
-        tmp_split = self.client.url.split('/')
+        tmp_split = client.url.split('/')
         js_url = '/'.join(tmp_split[:-2])+'/js/'+'/'.join(tmp_split[-2:])
         ns_url = '/'.join(tmp_split[:-2])+'/ns/'+'/'.join(tmp_split[-2:])
 
@@ -82,11 +82,11 @@ class ACPTTNManagerV3:
         if client == None:
             client = self.client
 
-        if self.client.version == '2':
+        if client.version == '2':
             response = requests.get(client.url+"/devices/"+device_id,headers=client.headers)
             return response.json()
 
-        tmp_split = self.client.url.split('/')
+        tmp_split = client.url.split('/')
         js_url = '/'.join(tmp_split[:-2])+'/js/'+'/'.join(tmp_split[-2:])
         ns_url = '/'.join(tmp_split[:-2])+'/ns/'+'/'.join(tmp_split[-2:])
 
@@ -120,9 +120,14 @@ class ACPTTNManagerV3:
         '''
         response_text = ''
         if self.client.version == '2':
-            response = self.register_device_v2(device_settings)
-            return response.text
-        device = self.get_device_from_settings(device_settings)
+            device = self.get_device_v2(device_settings)
+            response = requests.post(self.client.url+"/devices",headers=self.client.headers, data=json.dumps(device))
+            if response.status_code == 200:
+                return 'Device added'
+            else:
+                return response.json()
+
+        device = self.get_device(device_settings)
         tmp_split = self.client.url.split('/')
 
         ### Register on End Device registry
@@ -171,6 +176,8 @@ class ACPTTNManagerV3:
             
             response = requests.delete(self.client.url+"/devices/"+device_settings['ids']['device_id'], headers=self.client.headers)
             return response_text + response.text
+        else:
+            return 'Device added'
 
     def delete_device(self, dev_id, client=None):
         '''
@@ -180,11 +187,11 @@ class ACPTTNManagerV3:
         '''
         if client == None:
             client = self.client
-        if self.client.version == '2':
+        if client.version == '2':
             response = requests.delete(client.url+"/devices/"+dev_id, headers=client.headers)
             return response.json()
         else:
-            tmp_split = self.client.url.split('/')
+            tmp_split = client.url.split('/')
             
             try:
                 as_url = '/'.join(tmp_split[:-2])+'/as/'+'/'.join(tmp_split[-2:])+"/devices/"+dev_id
@@ -204,12 +211,12 @@ class ACPTTNManagerV3:
             except:
                 pass
             
-            response = requests.delete(self.client.url+"/devices/"+dev_id, headers=self.client.headers)
+            response = requests.delete(client.url+"/devices/"+dev_id, headers=self.client.headers)
 
             return response.json()
 
 
-    def register_device_v2(self, device_settings):
+    def get_device_v2(self, device_settings):
         device = {
                     "altitude": device_settings['altitude'] if 'altitude' in device_settings.keys() else 0,
                     "app_id": device_settings['app_id'],
@@ -220,11 +227,10 @@ class ACPTTNManagerV3:
                     "longitude": device_settings['longitude'] if 'longitude' in device_settings.keys() else 0.0,
                     "lorawan_device": device_settings['lorawan_device']
                 }
-        response = requests.post(self.client.url+"/devices",headers=self.client.headers, data=json.dumps(device))
-        return response
+        # response = requests.post(self.client.url+"/devices",headers=self.client.headers, data=json.dumps(device))
+        return device
 
-    def get_device_from_settings(self, device_settings):
-
+    def get_device(self, device_settings):
         device = {}
 
         device['is'] = {
@@ -290,3 +296,155 @@ class ACPTTNManagerV3:
 
         return device
         
+    def migrate_devices(self, from_app_id, dev_ids = None):
+        
+        from_app_version = str(self.settings['TTN_APPLICATIONS'][from_app_id]['version'])
+        device_key = 'devices' if from_app_version == '2' else 'end_devices'
+
+        migrate_client = Client(
+                        from_app_version,
+                        self.settings['URLS'][from_app_version]['url'] + self.settings['TTN_APPLICATIONS'][from_app_id]['app_id'],
+                        {"Authorization": self.settings['TTN_APPLICATIONS'][from_app_id]['auth_type'] + " "+ self.settings['TTN_APPLICATIONS'][from_app_id]['access_key'], "Content-Type":"application/json"})
+
+        to_app = self.get_app_details()
+        to_app_id = to_app['app_id'] if self.client.version == '2' else to_app['ids']['application_id']
+        response_list = []
+        if dev_ids == None:            
+            devices = self.get_all_devices(migrate_client)
+
+            if len(devices) == 0:
+                return "No registered devices to migrate"
+
+            for device in devices[device_key]:
+                response = self.__migrate_device(device, migrate_client, to_app_id)
+
+                if response != 'Device added':
+                    response_list.append(response)
+        else:
+            for dev_id in dev_ids:
+                device = self.get_device_details(dev_id, migrate_client)
+
+                if 'error' in device.keys():
+                    print(dev_id, ' not registered on ', from_app_id)
+                    continue
+
+                response = self.migrate_device(device, migrate_client, to_app_id)
+
+                if response != 'Device added':
+                    response_list.append(response)
+
+        if len(response_list) == 0:
+            return "Migration complete"
+        else:
+            return json.dumps(response_list)
+
+    def __get_migrate_device_v2(self, device, to_app_id):
+        migrate_device = {
+                            "altitude": device['altitude'] if 'altitude' in device.keys() else 0,
+                            "app_id": self.settings['TTN_APPLICATIONS'][to_app_id]['app_id'],
+                            "attributes": device['attributes'] if 'attributes' in device.keys() else {"key": "","value": ""},
+                            "description": device['description'] if 'description' in device.keys() else "",
+                            "dev_id": device['dev_id'],
+                            "latitude": device['latitude'] if 'latitude' in device.keys() else 0.0,
+                            "longitude": device['longitude'] if 'longitude' in device.keys() else 0.0,
+                            "lorawan_device": {
+                                "activation_constraints": device['lorawan_device']['activation_constraints'] if 'activation_constraints' in device.keys() else "local",
+                                "app_eui": device['lorawan_device']['app_eui'],
+                                "app_id": self.settings['TTN_APPLICATIONS'][to_app_id]['app_id'],
+                                "app_key": device['lorawan_device']['app_key'],
+                                "dev_eui": device['lorawan_device']['dev_eui'],
+                                "dev_id": device['dev_id'],
+                                "disable_f_cnt_check": False,
+                                "f_cnt_down": device['f_cnt_down'] if 'f_cnt_down' in device.keys() else 0,
+                                "f_cnt_up": device['f_cnt_up'] if 'f_cnt_up' in device.keys() else 0,
+                                "last_seen": device['last_seen'] if 'last_seen' in device.keys() else 0,
+                                "uses32_bit_f_cnt": True
+                            }
+                        }
+
+        return migrate_device
+
+    def __get_migrate_device(self, device_settings, migrate_version):
+        device = {}
+
+        device['is'] = {
+            "end_device": {
+                "ids": {
+                    "device_id": device_settings['ids']['device_id'] if migrate_version == 3 else device_settings['dev_id'],
+                    "dev_eui": device_settings['ids']['dev_eui']  if migrate_version == 3 else device_settings['lorawan_device']['dev_eui'],
+                    "join_eui": device_settings['ids']['join_eui'] if migrate_version == 3 else device_settings['lorawan_device']['app_eui']
+                },
+                "join_server_address": self.settings['SERVER_ADDRESS'],
+                "network_server_address": self.settings['SERVER_ADDRESS'],
+                "application_server_address": self.settings['SERVER_ADDRESS'],
+                "name": device_settings['name'] if migrate_version == 3 else device_settings['dev_id'] 
+            }
+        }
+
+        device['js'] = {
+            "end_device": {
+                "ids": {
+                    "device_id": device_settings['ids']['device_id'] if migrate_version == 3 else device_settings['dev_id'],
+                    "dev_eui": device_settings['ids']['dev_eui']  if migrate_version == 3 else device_settings['lorawan_device']['dev_eui'],
+                    "join_eui": device_settings['ids']['join_eui'] if migrate_version == 3 else device_settings['lorawan_device']['app_eui']
+                },
+                "network_server_address": self.settings['SERVER_ADDRESS'],
+                "application_server_address": self.settings['SERVER_ADDRESS'],
+                "network_server_kek_label": device_settings['network_server_kek_label'] if 'network_server_kek_label' in device_settings.keys() else "",
+                "application_server_kek_label": device_settings['application_server_kek_label'] if 'application_server_kek_label' in device_settings.keys() else "",
+                "application_server_id": device_settings['application_server_id'] if 'application_server_id' in device_settings.keys() else "",
+                "net_id":device_settings['net_id'] if 'net_id' in device_settings.keys() else None,
+                "root_keys": device_settings['root_keys'] if migrate_version == 3 else {"app_key":{"key":device_settings['lorawan_device']['app_key']}}
+            }
+        }
+
+        device['ns'] = {
+            "end_device": {
+                "frequency_plan_id": device_settings['frequency_plan_id'] if 'frequency_plan_id' in device_settings.keys() else self.settings['FREQUENCY_PLAN'],
+                "supports_join": device_settings['supports_join'] if 'supports_join' in device_settings.keys() else True,
+                "lorawan_version": device_settings['lorawan_version'] if 'lorawan_version' in device_settings.keys() else self.settings['LORAWAN_VERSION'],                
+                "lorawan_phy_version": device_settings['lorawan_phy_version'] if 'lorawan_phy_version' in device_settings.keys() else self.settings['LORAWAN_VERSION']+"-a",
+                "ids":{
+                    "device_id": device_settings['ids']['device_id'] if migrate_version == 3 else device_settings['dev_id'],
+                    "dev_eui": device_settings['ids']['dev_eui']  if migrate_version == 3 else device_settings['lorawan_device']['dev_eui'],
+                    "join_eui": device_settings['ids']['join_eui'] if migrate_version == 3 else device_settings['lorawan_device']['app_eui']
+                },
+                "mac_settings": device_settings['mac_settings'] if 'mac_settings' in device_settings.keys() else {
+                    "supports_32_bit_f_cnt": True
+                },
+                "supports_class_c": device_settings['supports_class_c'] if 'supports_class_c' in device_settings.keys() else False,
+                "supports_class_b": device_settings['supports_class_b'] if 'supports_class_b' in device_settings.keys() else False,
+                "multicast": device_settings['multicast'] if 'multicast' in device_settings.keys() else False             
+            }
+        }
+
+        device['as'] = {
+            "end_device":{
+                "ids":{
+                    "device_id": device_settings['ids']['device_id'] if migrate_version == 3 else device_settings['dev_id'],
+                    "dev_eui": device_settings['ids']['dev_eui']  if migrate_version == 3 else device_settings['lorawan_device']['dev_eui'],
+                    "join_eui": device_settings['ids']['join_eui'] if migrate_version == 3 else device_settings['lorawan_device']['app_eui']
+                }
+            }
+        }
+
+        migrate_device = device['is']['end_device']
+
+        for key in device['js']['end_device'].keys():
+            migrate_device[key] = device['js']['end_device'][key]
+        
+        for key in device['ns']['end_device'].keys():
+            migrate_device[key] = device['ns']['end_device'][key]
+
+        return migrate_device
+
+    def __migrate_device(self, device, migrate_client, to_app_id):
+        dev_id = device['dev_id'] if migrate_client.version == '2' else device['ids']['device_id']
+
+        new_device = self.__get_migrate_device(device, migrate_client.version) if self.client.version == '3' else self.__get_migrate_device_v2(device, to_app_id)
+
+        self.delete_device(dev_id,migrate_client)
+
+        response = self.register_device(new_device)
+        
+        return response

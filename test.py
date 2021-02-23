@@ -3,7 +3,7 @@ import json
 import sys
 
 def load_settings():
-    with open('secrets/settings.json', 'r') as settings_file:
+    with open('secrets/settings_v3.json', 'r') as settings_file:
         settings_data = settings_file.read()
 
     # parse file
@@ -18,7 +18,7 @@ def load_settings():
 # manager.migrate_devices('vlab-sensor-network-2')
 
 manager = ACPTTNManagerV3(load_settings(), 'cambridgesensornetwork', '3')
-# manager = ACPTTNManagerV3(load_settings(), 'vlab-sensor-network-2', '2')
+# manager = ACPTTNManagerV3(load_settings(), 'vlab-sensor-network', '2')
 
 app = manager.get_app_details()
 # devices = manager.get_all_devices()
@@ -46,5 +46,7 @@ def write(manager, json_file, device_id=None):
             else:
                 print("Warning: TTN application not updated.", file=sys.stderr)
 
-write(manager, 'device_v3.json') 
+# write(manager, 'device_v3.json')
+
+manager.migrate_devices('vlab-sensor-network-2')
 # manager.delete_device('elsys-co2-044abc')                
