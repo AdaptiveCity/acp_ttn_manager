@@ -131,7 +131,11 @@ class ACPTTNManagerV3:
         tmp_split = self.client.url.split('/')
 
         ### Register on End Device registry
+        isUpdate = False
         response_is = requests.post(self.client.url+"/devices", headers=self.client.headers, data=json.dumps(device['is']))
+        if response_is.status_code == 409:
+            response_is = requests.put(self.client.url+"/devices/"+device_settings['ids']['device_id'], headers=self.client.headers, data=json.dumps(device['is']))
+            isUpdate = True
         response_js, response_ns, response_as = '', '', ''
         response_text = response_is.text
         
@@ -139,6 +143,8 @@ class ACPTTNManagerV3:
         if response_is.status_code == 200:
             js_url = '/'.join(tmp_split[:-2])+'/js/'+'/'.join(tmp_split[-2:])+"/devices/"+device_settings['ids']['device_id']
             response_js = requests.put(js_url, headers=self.client.headers, data=json.dumps(device['js']))
+            if response_js.status_code == 200 and isUpdate:
+                return 'Device updated'
             response_text += response_js.text
         else:
             return response_text
@@ -243,7 +249,18 @@ class ACPTTNManagerV3:
                 "join_server_address": self.settings['SERVER_ADDRESS'],
                 "network_server_address": self.settings['SERVER_ADDRESS'],
                 "application_server_address": self.settings['SERVER_ADDRESS'],
-                "name": device_settings['name']
+                "name": device_settings['name'],
+                "description": device_settings['description'] if 'description' in device_settings.keys() else ""
+            },
+            "field_mask":{
+                "paths":[
+                    "join_server_address",
+                    "network_server_address",
+                    "application_server_address",
+                    "ids.dev_eui",
+                    "ids.join_eui",
+                    "name"
+                ]
             }
         }
 
@@ -261,6 +278,20 @@ class ACPTTNManagerV3:
                 "application_server_id": device_settings['application_server_id']if 'application_server_id' in device_settings.keys() else "",
                 "net_id":device_settings['net_id']if 'net_id' in device_settings.keys() else None,
                 "root_keys": device_settings['root_keys']
+            },
+            "field_mask":{
+                "paths":[
+                    "network_server_address",
+                    "application_server_address",
+                    "ids.device_id",
+                    "ids.dev_eui",
+                    "ids.join_eui",
+                    "network_server_kek_label",
+                    "application_server_kek_label",
+                    "application_server_id",
+                    "net_id",
+                    "root_keys.app_key.key"
+                ]
             }
         }
 
@@ -281,6 +312,21 @@ class ACPTTNManagerV3:
                 "supports_class_c": device_settings['supports_class_c'] if 'supports_class_c' in device_settings.keys() else False,
                 "supports_class_b": device_settings['supports_class_b'] if 'supports_class_b' in device_settings.keys() else False,
                 "multicast": device_settings['multicast'] if 'multicast' in device_settings.keys() else False             
+            },
+            "field_mask":{
+                "paths":[
+                    "multicast",
+                    "supports_join",
+                    "lorawan_version",
+                    "ids.device_id",
+                    "ids.dev_eui",
+                    "ids.join_eui",
+                    "mac_settings.supports_32_bit_f_cnt",
+                    "supports_class_c",
+                    "supports_class_b",
+                    "lorawan_phy_version",
+                    "frequency_plan_id"
+                ]
             }
         }
 
@@ -291,6 +337,13 @@ class ACPTTNManagerV3:
                     "dev_eui": device_settings['ids']['dev_eui'],
                     "join_eui": device_settings['ids']['join_eui'] if 'join_eui' in device_settings['ids'].keys() else "0000000000000000"
                 }
+            },
+            "field_mask":{
+                "paths":[
+                    "ids.device_id",
+                    "ids.dev_eui",
+                    "ids.join_eui"
+                ]
             }
         }
 
@@ -377,7 +430,8 @@ class ACPTTNManagerV3:
                 "join_server_address": self.settings['SERVER_ADDRESS'],
                 "network_server_address": self.settings['SERVER_ADDRESS'],
                 "application_server_address": self.settings['SERVER_ADDRESS'],
-                "name": device_settings['name'] if migrate_version == 3 else device_settings['dev_id'] 
+                "name": device_settings['name'] if migrate_version == 3 else device_settings['dev_id'],
+                "description": device_settings['description'] if 'description' in device_settings.keys() else ""
             }
         }
 

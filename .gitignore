@@ -4,4 +4,3 @@ secrets/
 venv/
 testfiles/
 device*.json
-TTNv3_APICalls.md
