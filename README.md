@@ -1,4 +1,5 @@
 # Adaptive City Program TTN Manager
+This repo has been updated to support the changes made by the V3 transition. [V2 to V3 Changes](V2-V3_Changes.md)<br>
 ACP TTN Manager provides means to manage TTN application and devices. It supports the following functionalities;
 1. Get details of the TTN Application
 2. Get details of all the registered devices on any application
@@ -50,7 +51,7 @@ Create a `secrets/settings_v3.json` file with the following entries;
                             "app_eui" : "0000000000000000"
                         },
 
-                        "appid1" : {
+                        "appid" : {
                             "version":3,
                             "auth_type": "Bearer",
                             "app_id" : "appid",
