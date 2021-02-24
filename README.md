@@ -1,5 +1,5 @@
 # Adaptive City Program TTN Manager
-This repo has been updated to support the changes made by the V3 transition. [V2 to V3 Changes](V2-V3_Changes.md)<br>
+This repo has been updated to support the changes made by the TTN V3 transition. [V2 to V3 Changes](V2-V3_Changes.md)<br><br>
 ACP TTN Manager provides means to manage TTN application and devices. It supports the following functionalities;
 1. Get details of the TTN Application
 2. Get details of all the registered devices on any application
