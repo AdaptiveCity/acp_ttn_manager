@@ -99,7 +99,7 @@ Import the ACPTTNManager class and use the following class methods for the requi
 3. `get_device_details(device_id, client)`: Return the device object corresponding to 'device_id' on the specified client application. Uses default client if no client specified.
 4. `register_device(device_settings)`: Register a device with the details provided in device_settings. If device is already present then update device settings.
 5. `delete_device(dev_id, client)`: Delete all devices whose dev_id are in 'dev_ids'.  Uses default client if no client specified. Delete all devices if no dev_ids specified.
-6. `migrate_devices(dev_ids)`: Migrate a set of devices from a TTN application to the default application of the class. Migrate all devices if no dev_ids specified.
+6. `migrate_devices(self, from_app_id, dev_ids)`: Migrate a set of devices from a TTN application with the id "from_app_id" to the default application of the class. Migrate all devices if dev_ids is None
 
 See the `test.py` file for examples.
 

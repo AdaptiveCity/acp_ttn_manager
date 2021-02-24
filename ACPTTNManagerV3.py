@@ -350,7 +350,7 @@ class ACPTTNManagerV3:
         
     def migrate_devices(self, from_app_id, dev_ids = None):
         '''
-        Migrate a set of devices from a TTN application with id from_app_id to the default application of the class
+        Migrate a set of devices from a TTN application with the id "from_app_id" to the default application of the class
         dev_ids: List containing the dev_id of all the devices to be migrated. Migrate all devices if None
         '''
         from_app_version = str(self.settings['TTN_APPLICATIONS'][from_app_id]['version'])
