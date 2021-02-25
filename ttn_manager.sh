@@ -132,7 +132,7 @@ def migrate(manager, from_app_id, acp_id_file=None):
 # Load settings
 ####################################################################
 def load_settings():
-    with open('secrets/settings_v3.json', 'r') as settings_file:
+    with open('secrets/settings.json', 'r') as settings_file:
         settings_data = settings_file.read()
 
     # parse file
