@@ -17,13 +17,13 @@ def load_settings():
 # device = manager.get_device_details("elsys-co2-041bab")
 # manager.migrate_devices('vlab-sensor-network-2')
 
-manager = ACPTTNManagerV3(load_settings(), 'cambridgesensornetwork', '3')
-# manager = ACPTTNManagerV3(load_settings(), 'vlab-sensor-network', '2')
+#manager = ACPTTNManagerV3(load_settings(), 'cambridgesensornetwork', '3')
+manager = ACPTTNManagerV3(load_settings(), 'vlab-sensor-network')
 
 app = manager.get_app_details()
-# devices = manager.get_all_devices()
+devices = manager.get_all_devices()
 # print(app)
-# print(devices)
+print(devices)
 # device = manager.get_device_details("elsys-co2-0520a7")
 # device = manager.get_device_details("elsys-co2-041bab")
 # print(device)
@@ -46,7 +46,7 @@ def write(manager, json_file, device_id=None):
             else:
                 print("Warning: TTN application not updated.", file=sys.stderr)
 
-write(manager, 'device_v3.json')
+# write(manager, 'device_v3.json')
 
 # print(manager.delete_device('elsys-co2-045abc'))
 

@@ -11,8 +11,6 @@ ACP TTN Manager provides means to manage TTN application and devices. It support
 
 ## Installation
 
-Use ttn_manager_v3.sh which supports TTN V3.
-
 You would need Python 3 for running.
 
 ```
@@ -26,13 +24,25 @@ python3 -m pip install -r requirements.txt
 ```
 
 ## Usage
-Create a `secrets/settings_v3.json` file with the following entries;
+Create a `secrets/settings.json` file with the following entries;
 
 ```
 {
-    "SERVER_ADDRESS": "eu.ttn.example.com",
-    "FREQUENCY_PLAN": "EU_863_870_TTN",
-    "LORAWAN_VERSION": "1.0.3",
+    "template-v3": {
+            "ids":{
+                "join_eui":"0000000000000000"
+            },                
+            "network_server_address": "eu1.ttn.example.com",
+            "application_server_address": "eu1.ttn.example.com",
+            "join_server_address": "eu1.ttn.example.com",
+            "lorawan_version": "1.0.3",
+            "lorawan_phy_version": "1.0.3-a",
+            "frequency_plan_id": "EU_863_870_TTN",
+            "supports_join": true,
+            "mac_settings": {
+                "supports_32_bit_f_cnt": true
+            }
+    },
     "URLS" : {
         "2" : {
             "url" : "https://eu.ttn.example.com:8094/applications/"           
@@ -107,7 +117,7 @@ See the `test.py` file for examples.
 
 usage:
 ```
-./ttn_manager.sh [--help] --app_id APP_ID --ttn_version TTN VERSION
+./ttn_manager.sh [--help] --app_id APP_ID
         [--ttnread | --ttnwrite | --delete <acp_id> | --migrate <from_app_id>] [--jsonfile JSONFILE]
         [--id <acp_id>]
 
@@ -118,8 +128,6 @@ optional arguments:
   --help: show this help message and exit
 
   --app_id <APP_ID>: Application id of the TTN Application
-
-  --ttn_version <TTN VERSION>: TTN Version Number
 
   --ttnread: Read all the registered devices and print to a file if filename provided, else
              print to stdout
@@ -171,7 +179,8 @@ In all these examples the uploaded/downloaded information will look like:
             "attributes": {
                 "key": "",
                 "value": ""
-            }
+            },
+            ttn_version:2
         }
     }
     ... followed by similar device entries
@@ -213,7 +222,8 @@ In all these examples the uploaded/downloaded information will look like:
                  "value":1
               },
               "supports_32_bit_f_cnt":true
-           }
+           },
+            ttn_version: 3
         }
     }
 ```
@@ -221,13 +231,13 @@ In all these examples the uploaded/downloaded information will look like:
 ### Download all TTN device registrations for an application to stdout
 
 ```
-./ttn_manager_v3.sh --ttnread --app_id vlab-sensor-network --ttn_version 2
+./ttn_manager.sh --ttnread --app_id vlab-sensor-network
 ```
 
 ### Download all TTN device registrations for an application to a file
 
 ```
-./ttn_manager_v3.sh --ttnread --app_id vlab-sensor-network  --ttn_version 2 --jsonfile vlab_devices.json
+./ttn_manager.sh --ttnread --app_id vlab-sensor-network --jsonfile vlab_devices.json
 ```
 
 **Note that if `vlab_devices.json` already exists, then the TTN settings will be MERGED
@@ -236,7 +246,7 @@ into that file **
 ### Download TTN registration data for a single device
 
 ```
-./ttn_manager_v3.sh --ttnread --app_id vlab-sensor-network --ttn_version 2 --id elsys-co2-045xxx
+./ttn_manager.sh --ttnread --app_id vlab-sensor-network --id elsys-co2-045xxx
 ```
 
 A `--jsonfile` parameter can also be give, as in the prior example.
@@ -244,25 +254,25 @@ A `--jsonfile` parameter can also be give, as in the prior example.
 ### Upload device registrations to TTN (i.e. register devices to an application)
 
 ```
-./ttn_manager_v3.sh --ttnwrite --app_id vlab-sensor-network --ttn_version 2 --jsonfile my_devices.json
+./ttn_manager.sh --ttnwrite --app_id vlab-sensor-network --jsonfile my_devices.json
 ```
 
 ### Upload a single device registration to TTN (i.e. register a single device)
 
 ```
-./ttn_manager_v3.sh --ttnwrite --app_id vlab-sensor-network --ttn_version 2 --jsonfile my_devices.json --id elsys-co2-045xxx
+./ttn_manager.sh --ttnwrite --app_id vlab-sensor-network --jsonfile my_devices.json --id elsys-co2-045xxx
 ```
 
 ### Migrate all devices from one TTN application to another
 
 ```
-./ttn_manager_v3.sh --migrate vlab-sensor-network --app_id my-new-app --ttn_version 2
+./ttn_manager.sh --migrate vlab-sensor-network --app_id my-new-app
 ```
 
 ### Migrate selected devices from one TTN application to another
 
 ```
-./ttn_manager_v3.sh --migrate vlab-sensor-network --app_id my-new-app --ttn_version 2 --jsonfile device_ids.json
+./ttn_manager.sh --migrate vlab-sensor-network --app_id my-new-app --jsonfile device_ids.json
 ```
 
 Where `device_ids.json` could be:
