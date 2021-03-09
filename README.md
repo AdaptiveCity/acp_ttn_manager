@@ -32,9 +32,18 @@ Create a `secrets/settings.json` file with the following entries;
             "ids":{
                 "join_eui":"0000000000000000"
             },                
-            "network_server_address": "eu1.ttn.example.com",
-            "application_server_address": "eu1.ttn.example.com",
-            "join_server_address": "eu1.ttn.example.com",
+            "network_server_address": "eu1.cloud.thethings.network",
+            "application_server_address": "eu1.cloud.thethings.network",
+            "join_server_address": "eu1.cloud.thethings.network",
+            "description": "",
+            "root_keys": {
+                "app_key": {
+                    "key": "22C905D1A45D1EAED8D950B915ECC8D8"
+                }
+            },
+            "network_server_kek_label": "",
+            "application_server_kek_label": "",
+            "application_server_id": "",
             "lorawan_version": "1.0.3",
             "lorawan_phy_version": "1.0.3-a",
             "frequency_plan_id": "EU_863_870_TTN",
@@ -98,7 +107,8 @@ Create a `secrets/settings.json` file with the following entries;
            "net_id",
            "root_keys.app_key.key"
         ]
-     }
+    },
+    "DEFAULT_APPLICATION": "cambridgesensornetwork"
 }
 ```
 ### Usage with your own python code
