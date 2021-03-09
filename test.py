@@ -14,10 +14,17 @@ manager = ACPTTNManager(load_settings(), 'cambridge-net-3')
 
 app = manager.get_app_details()
 devices = manager.get_all_devices()
-            
+
+migrated, not_migrated = [], []
 for device in devices['end_devices']:
     updated_time = device['updated_at'][:-4]
     dt = datetime.strptime(updated_time, '%Y-%m-%dT%H:%M:%S.%f')
     last_seen = ((datetime.now() - dt).seconds)/3600
     if last_seen > 2.0:
-        print(device['ids']['device_id'])
+        not_migrated.append(device['ids']['device_id'])
+    else:
+        migrated.append(device['ids']['device_id'])
+
+print('Migrated: ',migrated)
+print('######################')
+print('Not migrated: ',not_migrated)
