@@ -4,3 +4,4 @@ secrets/
 venv/
 testfiles/
 device*.json
+test_api.py

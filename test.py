@@ -1,4 +1,4 @@
-from ACPTTNManagerV3 import ACPTTNManagerV3
+from ACPTTNManager import ACPTTNManager
 import json
 import sys
 
@@ -18,7 +18,7 @@ def load_settings():
 # manager.migrate_devices('vlab-sensor-network-2')
 
 #manager = ACPTTNManagerV3(load_settings(), 'cambridgesensornetwork', '3')
-manager = ACPTTNManagerV3(load_settings(), 'vlab-sensor-network')
+manager = ACPTTNManager(load_settings(), 'vlab-sensor-network')
 
 app = manager.get_app_details()
 devices = manager.get_all_devices()

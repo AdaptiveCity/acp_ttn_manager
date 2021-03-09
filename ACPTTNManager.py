@@ -272,8 +272,8 @@ class ACPTTNManager:
                 "join_server_address": self.settings['template-v3']['join_server_address'],
                 "network_server_address": self.settings['template-v3']['network_server_address'],
                 "application_server_address": self.settings['template-v3']['application_server_address'],
-                "name": device_settings['name'] if version == 3 else device_settings['dev_id'],
-                "description": device_settings['description'] if 'description' in device_settings.keys() else ""
+                "name": (device_settings['name'] if 'name' in device_settings.keys() else device_settings['ids']['device_id']) if version == 3 else device_settings['dev_id'],
+                "description": device_settings['description'] if 'description' in device_settings.keys() else self.settings['template-v3']['description']
             },
             "field_mask":{
                 "paths":[
@@ -296,11 +296,11 @@ class ACPTTNManager:
                 },
                 "network_server_address": self.settings['template-v3']['join_server_address'],
                 "application_server_address": self.settings['template-v3']['application_server_address'],
-                "network_server_kek_label": device_settings['network_server_kek_label'] if 'network_server_kek_label' in device_settings.keys() else "",
-                "application_server_kek_label": device_settings['application_server_kek_label'] if 'application_server_kek_label' in device_settings.keys() else "",
-                "application_server_id": device_settings['application_server_id'] if 'application_server_id' in device_settings.keys() else "",
+                "network_server_kek_label": device_settings['network_server_kek_label'] if 'network_server_kek_label' in device_settings.keys() else self.settings['template-v3']['network_server_kek_label'],
+                "application_server_kek_label": device_settings['application_server_kek_label'] if 'application_server_kek_label' in device_settings.keys() else self.settings['template-v3']['application_server_kek_label'],
+                "application_server_id": device_settings['application_server_id'] if 'application_server_id' in device_settings.keys() else self.settings['template-v3']['application_server_id'],
                 "net_id":device_settings['net_id'] if 'net_id' in device_settings.keys() else None,
-                "root_keys": device_settings['root_keys'] if version == 3 else {"app_key":{"key":device_settings['lorawan_device']['app_key']}}
+                "root_keys": (device_settings['root_keys'] if 'root_keys' in device_settings.keys() else self.settings['template-v3']['root_keys']) if version == 3 else {"app_key":{"key":device_settings['lorawan_device']['app_key']}}
             },
             "field_mask":{
                 "paths":[
