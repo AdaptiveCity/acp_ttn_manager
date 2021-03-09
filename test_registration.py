@@ -25,6 +25,6 @@ for device in devices['end_devices']:
     else:
         migrated.append(device['ids']['device_id'])
 
-print('Migrated: ',migrated)
+print('Seen: ',migrated)
 print('######################')
-print('Not migrated: ',not_migrated)
+print('Not Seen: ',not_migrated)
