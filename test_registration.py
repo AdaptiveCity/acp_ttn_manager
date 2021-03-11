@@ -1,6 +1,7 @@
 from ACPTTNManager import ACPTTNManager
 import json
-from datetime import datetime
+from datetime import datetime, timezone
+import dateutil.parser
 
 def load_settings():
     with open('secrets/settings.json', 'r') as settings_file:
@@ -17,14 +18,15 @@ devices = manager.get_all_devices()
 
 migrated, not_migrated = [], []
 for device in devices['end_devices']:
-    updated_time = device['updated_at'][:-4]
-    dt = datetime.strptime(updated_time, '%Y-%m-%dT%H:%M:%S.%f')
-    last_seen = ((datetime.now() - dt).seconds)/3600
+    updated_time = device['updated_at']
+    dt = dateutil.parser.isoparse(updated_time)
+    last_seen = ((datetime.now(timezone.utc) - dt).seconds)/3600
     if last_seen > 2.0:
         not_migrated.append(device['ids']['device_id'])
     else:
         migrated.append(device['ids']['device_id'])
 
-print('Seen: ',migrated)
+print(f'Seen ({len(migrated)}): ',migrated)
 print('######################')
-print('Not Seen: ',not_migrated)
+print(f'Not Seen ({len(not_migrated)}): ',not_migrated)
+
