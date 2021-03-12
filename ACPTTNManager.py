@@ -132,7 +132,7 @@ class ACPTTNManager:
 
         device = None
         if not migration:
-            device = self.get_device(device_settings)            
+            device = self.get_device(device_settings, self.client.version)            
         else:
             device = device_settings
         
@@ -259,9 +259,9 @@ class ACPTTNManager:
         # response = requests.post(self.client.url+"/devices",headers=self.client.headers, data=json.dumps(device))
         return device
 
-    def get_device(self, device_settings):
+    def get_device(self, device_settings, version):
         device = {}
-        version = device_settings['ttn_version']
+        # version = device_settings['ttn_version']
         device['is'] = {
             "end_device": {
                 "ids": {
@@ -417,9 +417,9 @@ class ACPTTNManager:
 
     def __migrate_device(self, device, migrate_client, to_app_id):
         dev_id = device['dev_id'] if migrate_client.version == 2 else device['ids']['device_id']
-        device["ttn_version"] = migrate_client.version
-        new_device = self.get_device(device) if self.client.version == 3 else self.get_device_v2(device, to_app_id)
-        new_device['ttn_version'] = self.client.version
+        # device["ttn_version"] = migrate_client.version
+        new_device = self.get_device(device, migrate_client.version) if self.client.version == 3 else self.get_device_v2(device, to_app_id)
+        # new_device['ttn_version'] = self.client.version
         self.delete_device(dev_id,migrate_client)
 
         response = self.register_device(new_device, True)

@@ -24,8 +24,7 @@ def get_device_settings(qrdata):
             "ids": {
                 "device_id": device_id,
                 "dev_eui": dev_eui
-            },            
-            "ttn_version": 3
+            }
         }
     return device_settings
 
@@ -38,9 +37,12 @@ def register_device(device_settings, app_id):
 def register():
     app_id = settings['DEFAULT_APPLICATION']
     content = request.json
-    device_settings = get_device_settings(content['qrdata'])
-    response = register_device(device_settings, app_id)
-    return jsonify({"response":response, "device":device_settings["ids"]["device_id"]})
+    if content['access_token'] == settings['ACCESS_TOKEN']:
+        device_settings = get_device_settings(content['qrdata'])
+        response = register_device(device_settings, app_id)
+        return jsonify({"response":response, "device":device_settings["ids"]["device_id"]})
+    else:
+        return jsonify({"response":"Can't process request"})
 
 @app.route('/', methods=['GET'])
 def home():
