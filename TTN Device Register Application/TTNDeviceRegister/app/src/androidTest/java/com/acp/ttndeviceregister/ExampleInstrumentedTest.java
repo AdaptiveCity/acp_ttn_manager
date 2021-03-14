@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.acp.ttndeviceregister;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.journaldev.barcodevisionapi", appContext.getPackageName());
+        assertEquals("com.acp.ttndeviceregister", appContext.getPackageName());
     }
 }

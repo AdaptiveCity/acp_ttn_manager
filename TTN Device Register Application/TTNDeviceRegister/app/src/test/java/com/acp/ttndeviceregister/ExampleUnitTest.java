@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.acp.ttndeviceregister;
 
 import org.junit.Test;
 
