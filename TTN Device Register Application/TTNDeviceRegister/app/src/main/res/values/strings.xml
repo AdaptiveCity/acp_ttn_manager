@@ -8,4 +8,5 @@
     <string name="filename">deveui.txt</string>
     <string name="api_url">https://cdbb.uk/api/register/device/</string>
     <string name="registrationCompleteText">Device added</string>
+    <string name="devicePresent">Device updated</string>
 </resources>

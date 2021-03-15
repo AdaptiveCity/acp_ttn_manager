@@ -202,6 +202,9 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                     if (response.get("response").equals(getResources().getString(R.string.registrationCompleteText))){
                         toastText = getResources().getString(R.string.registrationCompleteText) + " "+ response.get("device");
                     }
+                    else if (response.get("response").equals(getResources().getString(R.string.devicePresent))){
+                        toastText = response.get("device") + " already registered";
+                    }
                     else {
                         toastText = "Error while registering.";
                     }
