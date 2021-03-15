@@ -40,6 +40,7 @@ def register():
     if content['access_token'] == settings['ACCESS_TOKEN']:
         device_settings = get_device_settings(content['qrdata'])
         response = register_device(device_settings, app_id)
+        print(response)
         return jsonify({"response":response, "device":device_settings["ids"]["device_id"]})
     else:
         return jsonify({"response":"Can't process request"})
@@ -52,7 +53,7 @@ def home():
 settings = load_settings()
 settings['host'] = 'localhost'
 settings['port'] = 5015
-device_keys = {'ERSCO2' : 'elsys-co2', 'ERSEye' : 'elsys-eye', 'ERSEMS' : 'elsys-ems'}
+device_keys = {'ERSCO2' : 'elsys-co2', 'ERSEye' : 'elsys-eye', 'EMS' : 'elsys-ems'}
 
 if __name__ == '__main__':
     app.run( host=settings["host"],
