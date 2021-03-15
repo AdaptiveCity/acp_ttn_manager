@@ -55,7 +55,7 @@ def register():
                     response_text += 'Already registered:'+resp_list[1]
                 else:
                     response_text += 'Error:'+resp_list[1]
-            return jsonify({"response":response, "device":response_text})
+            return jsonify({"response":'Device added', "device":response_text})
         device_settings = get_device_settings(content['qrdata'])
         response = register_device(device_settings, app_id)
         return jsonify({"response":response, "device":device_settings["ids"]["device_id"]})
