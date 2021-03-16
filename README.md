@@ -108,7 +108,8 @@ Create a `secrets/settings.json` file with the following entries;
            "root_keys.app_key.key"
         ]
     },
-    "DEFAULT_APPLICATION": "cambridgesensornetwork"
+    "DEFAULT_APPLICATION": "cambridge-net-3",
+    "ACCESS_TOKEN": "get from secrets"
 }
 ```
 ### Usage with your own python code
@@ -189,8 +190,7 @@ In all these examples the uploaded/downloaded information will look like:
             "attributes": {
                 "key": "",
                 "value": ""
-            },
-            ttn_version:2
+            }
         }
     }
     ... followed by similar device entries
@@ -232,8 +232,7 @@ In all these examples the uploaded/downloaded information will look like:
                  "value":1
               },
               "supports_32_bit_f_cnt":true
-           },
-            ttn_version: 3
+           }
         }
     }
 ```
