@@ -1,13 +1,13 @@
 package com.acp.ttndeviceregister;
 
 import android.Manifest;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
@@ -31,30 +31,19 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 
-public class ScannedBarcodeActivity extends AppCompatActivity {
-
-
+public class RegisterSingleDeviceActivity extends AppCompatActivity {
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
-//    Button btnAction;
+    Button btnAction;
     String intentData = "";
     String lastWrittenData = "";
-//    boolean isEmail = false;
 
 
     @Override
@@ -68,23 +57,14 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
     private void initViews() {
         txtBarcodeValue = findViewById(R.id.txtBarcodeValue);
         surfaceView = findViewById(R.id.surfaceView);
+        btnAction = findViewById(R.id.returnToMain);
 
-
-//        btnAction.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (intentData.length() > 0) {
-//                    if (isEmail)
-//                        startActivity(new Intent(ScannedBarcodeActivity.this, EmailActivity.class).putExtra("email_address", intentData));
-//                    else {
-//                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
-//                    }
-//                }
-//
-//
-//            }
-//        });
+        btnAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                returnToMainActivity();
+            }
+        });
     }
 
     private void initialiseDetectorsAndSources() {
@@ -104,10 +84,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    if (ActivityCompat.checkSelfPermission(ScannedBarcodeActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(RegisterSingleDeviceActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                         cameraSource.start(surfaceView.getHolder());
                     } else {
-                        ActivityCompat.requestPermissions(ScannedBarcodeActivity.this, new
+                        ActivityCompat.requestPermissions(RegisterSingleDeviceActivity.this, new
                                 String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
                     }
 
@@ -173,13 +153,47 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
             writer.append(message+"\n");
             writer.flush();
             writer.close();
-            registerSensorTTN(message);
+            confirmRegistration(message);
+//            returnToMainActivity();
+//            registerSensorTTN(message);
 //            Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         }
         catch(IOException e)
         {
             e.printStackTrace();
         }
+    }
+
+    private void confirmRegistration(final String message) {
+        AlertDialog.Builder confirmRegistration = new AlertDialog.Builder(RegisterSingleDeviceActivity.this);
+
+        confirmRegistration.setTitle("Confirm Registration");
+        confirmRegistration.setMessage("Are you sure you want to register device "+message);
+
+        confirmRegistration.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        registerSensorTTN(message);
+                    }
+                });
+
+        confirmRegistration.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        dialogInterface.cancel();
+                        returnToMainActivity();
+                    }
+                });
+
+        confirmRegistration.show();
+    }
+
+    private void returnToMainActivity() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     private void registerSensorTTN(String message) {
@@ -211,7 +225,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();
+                new VibratingToast(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
             }
         }, new Response.ErrorListener() {
             @Override

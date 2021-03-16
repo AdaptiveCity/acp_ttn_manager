@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">TTN Device Register</string>
-    <string name="take_barcode_picture">Take QR Picture</string>
-    <string name="scan_barcode">Scan QR</string>
-    <string name="open_camera">OPEN CAMERA</string>
-    <string name="send_email">SEND EMAIL</string>
+    <string name="register_multiple">Register Multiple</string>
+    <string name="register_single">Register Single</string>
+    <string name="home_screen">HOME SCREEN</string>
     <string name="directory">DevEUI</string>
     <string name="filename">deveui.txt</string>
     <string name="api_url">https://cdbb.uk/api/register/device/</string>

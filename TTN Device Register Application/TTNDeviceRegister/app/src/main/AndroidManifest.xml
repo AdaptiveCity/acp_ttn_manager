@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -27,11 +28,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".PictureBarcodeActivity" />
-        <activity android:name=".ScannedBarcodeActivity" />
-        <activity
-            android:name=".EmailActivity"
-            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".RegisterSingleDeviceActivity" />
+        <activity android:name=".RegisterMultipleDeviceActivity" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"

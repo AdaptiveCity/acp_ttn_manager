@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnTakePicture, btnScanBarcode;
+    Button btnRegisterSingle, btnRegisterMultiple;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,15 +18,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initViews() {
-        btnScanBarcode = findViewById(R.id.btnScanBarcode);
-//        btnTakePicture.setOnClickListener(this);
-        btnScanBarcode.setOnClickListener(this);
+        btnRegisterSingle = findViewById(R.id.btnRegisterSingle);
+        btnRegisterMultiple = findViewById(R.id.btnRegisterMultiple);
+        btnRegisterSingle.setOnClickListener(this);
+        btnRegisterMultiple.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
-        startActivity(new Intent(MainActivity.this, ScannedBarcodeActivity.class));
+        switch (v.getId()){
+            case R.id.btnRegisterSingle:
+                startActivity(new Intent(MainActivity.this, RegisterSingleDeviceActivity.class));
+                break;
+            case R.id.btnRegisterMultiple:
+                startActivity(new Intent(MainActivity.this, RegisterMultipleDeviceActivity.class));
+                break;
+        }
 
     }
 }
