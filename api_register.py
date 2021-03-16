@@ -40,7 +40,6 @@ def register():
     if content['access_token'] == settings['ACCESS_TOKEN']:
         device_settings = get_device_settings(content['qrdata'])
         response = register_device(device_settings, app_id)
-        print(response)
         return jsonify({"response":response, "device":device_settings["ids"]["device_id"]})
     else:
         return jsonify({"response":"Can't process request"})
