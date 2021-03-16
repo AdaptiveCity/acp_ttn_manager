@@ -2,8 +2,10 @@
 
 This application reads the QR Code on the TTN Device and registers it to the TTN Console.
 
+**Do not use this app on a device already registered with a JoinEUI not same as 0000000000000000.**
+
 ## Prerequisites
-1. This app also stores the Device EUI in a text file on the Android device, so provide **storage permissions** for the app from settings before first use.
+1. Please provide **Storage** permission from settings before using the app. This app stores the Device EUI in a text file on the Android device, so storage permissions is required.
 2. Internet connectivity is required for the registration process.
 
 ## How to use
