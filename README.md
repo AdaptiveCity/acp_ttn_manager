@@ -130,7 +130,7 @@ usage:
 ```
 ./ttn_manager.sh [--help] --app_id APP_ID
         [--ttnread | --ttnwrite | --delete <acp_id> | --migrate <from_app_id>] [--jsonfile JSONFILE]
-        [--id <acp_id>]
+        [--id <acp_id>] [--id_file <acp_id_file_name>]
 
 Import/export json data <-> TTN
 
@@ -155,7 +155,9 @@ optional arguments:
 
   --jsonfile <JSONFILE>: Filename for the command requesting a file
 
-  --id <acp_id>`: limits scope of command to a given TTN device id.
+  --id <acp_id>: limits scope of command to a given TTN device id.
+
+  --id_file <acp_id-file_name>: file with { "acp_ids" : [ list of acp_id strings ] }
 ```
 
 ## Examples
@@ -259,6 +261,22 @@ into that file **
 ```
 
 A `--jsonfile` parameter can also be give, as in the prior example.
+
+### Download TTN registration data for a list of device ids
+
+```
+./ttn_manager.sh --ttnread --app_id cambridge-net-3 --id_file device_ids.json
+```
+
+Where `device_ids.json` could be:
+```
+{
+    "acp_ids": [
+        "elsys-co2-044abc",
+        "elsys-co2-043abc"
+    ]
+}
+```
 
 ### Upload device registrations to TTN (i.e. register devices to an application)
 

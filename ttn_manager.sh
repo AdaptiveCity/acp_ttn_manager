@@ -32,7 +32,7 @@ def set_device_entry(device, dev_id, version, existing_device=None):
         for key in existing_device.keys():
             device_entry[key] = existing_device[key]
         device_entry["acp_ts"] = acp_ts
-        device_entry["ttn_settings"] = device        
+        device_entry["ttn_settings"] = device
     else:
         device_entry = {
                 "acp_id": dev_id,
@@ -45,7 +45,7 @@ def set_device_entry(device, dev_id, version, existing_device=None):
 ####################################################################
 # Read device information from TTN
 ####################################################################
-def read(manager, json_file=None, device_id=None):
+def read(manager, json_file=None, device_id=None, acp_id_file=None):
     # Here is the TTN read
     version = manager.client.version
     device_key = 'devices' if version == 2 else 'end_devices'
@@ -58,6 +58,24 @@ def read(manager, json_file=None, device_id=None):
 
     if len(devices) == 0:
         print("No registered devices",file=sys.stderr,flush=True)
+        return
+
+    if acp_id_file is not None:
+        acp_id_list = get_acp_ids_from_file(acp_id_file)
+    else:
+        acp_id_list = []
+
+    if len(acp_id_list) > 0 :
+        sensors = {}
+        for device in devices[device_key]:
+            if 'error' in device:
+                print('Device read error from TTN: {}'.format(device), file=sys.stderr, flush=True)
+            else:
+                dev_id = device['dev_id'] if version == 2 else device['ids']['device_id']
+                if dev_id in acp_id_list:
+                    device_entry = set_device_entry(device, dev_id, version)
+                    sensors[dev_id] = device_entry
+        print(json.dumps(sensors, indent=4))
         return
 
     if json_file == None:
@@ -93,7 +111,7 @@ def write(manager, json_file, device_id=None):
         for json_id in json_data.keys():
             if device_id is None or device_id==json_id:
                 app_updated=True
-                ttn_settings = json_data[json_id]['ttn_settings'] 
+                ttn_settings = json_data[json_id]['ttn_settings']
                 print(json_id,': ',manager.register_device(ttn_settings))
         if not app_updated:
             if device_id:
@@ -116,17 +134,28 @@ def migrate(manager, from_app_id, acp_id_file=None):
     if acp_id_file == None:
         response = manager.migrate_devices(from_app_id)
     else:
-        acp_id_list = []
-        ip = open(acp_id_file)
-        acp_ids = ip.read()
-        acp_id_list = json.loads(acp_ids)['acp_ids']
+        acp_id_list = get_acp_ids_from_file(acp_id_file)
         if len(acp_id_list) == 0:
-            print('Empty file')
+            print('Empty --id_file file', file=sys.stderr, flush=True)
             return
         response = manager.migrate_devices(from_app_id, acp_id_list)
-        ip.close()
 
     print(response)
+
+####################################################################
+# Get acp_ids from file
+####################################################################
+def get_acp_ids_from_file(acp_id_file):
+    acp_id_list = []
+    ip = open(acp_id_file)
+    acp_ids = ip.read()
+    acp_id_list = json.loads(acp_ids)['acp_ids']
+    ip.close()
+    if len(acp_id_list) == 0:
+        print('Empty --id_file file', file=sys.stderr, flush=True)
+        return []
+    else:
+        return acp_id_list
 
 ####################################################################
 # Load settings
@@ -160,6 +189,10 @@ def parse_init():
                         metavar='<acp_id>',
                         help="Sensor identifier (e.g. 'ijl20-sodaq-ttn') to limit scope to only this sensor")
 
+    parser.add_argument('--id_file',
+                        metavar='<acp_ids>',
+                        help="JSON file with sensor identifiers to limit scope to only these sensors (see --migrate)")
+
     # We will create an exclusive args group for the commands
     group = parser.add_mutually_exclusive_group()
 
@@ -178,7 +211,7 @@ def parse_init():
     group.add_argument('-m', '--migrate',
                         nargs=1,
                         metavar='<from_app_id>',
-                        help='Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a jsonfile in the format {"acp_ids": ["elsys-co2-044abc","elsys-co2-043abc"]}. Provide the filename using -f or --jsonfile. If no file specified, then migrate all devices.')
+                        help='Migrate devices listed in filename from the from_app_id application to the one specified by -a. All devices to be migrated should have their acp_id in a jsonfile in the format {"acp_ids": ["elsys-co2-044abc","elsys-co2-043abc"]}. Provide the filename using -f or --id_file. If no file specified, then migrate all devices.')
 
     return parser
 
@@ -200,7 +233,7 @@ if __name__ == '__main__':
     manager = ACPTTNManager(settings, app_id)
 
     if args.ttnread:
-        read(manager, args.jsonfile, args.id)
+        read(manager, args.jsonfile, args.id, args.id_file)
 
     elif args.ttnwrite:
         write(manager, args.jsonfile, args.id)
@@ -209,10 +242,11 @@ if __name__ == '__main__':
         delete(manager, args.delete)
 
     elif args.migrate:
-        if args.jsonfile:
-            migrate(manager, args.migrate[0], args.jsonfile)
+        if args.id_file:
+            migrate(manager, args.migrate[0], args.id_file)
         else:
             migrate(manager, args.migrate[0])
 
     else:
         print(manager.get_app_details())
+
