@@ -42,12 +42,18 @@ public class RegisterMultipleDeviceActivity extends AppCompatActivity {
     Button btnAction;
     String intentData = "";
     String lastWrittenData = "";
+    String ttnAppName = "";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_barcode);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            ttnAppName = extras.getString("ttnAppName");
+        }
 
         initViews();
     }
@@ -173,6 +179,7 @@ public class RegisterMultipleDeviceActivity extends AppCompatActivity {
 
         try{
             postData.put("qrdata",message);
+            postData.put("ttnAppName", ttnAppName);
             postData.put("access_token",BuildConfig.ACCESS_TOKEN);
         } catch (JSONException e){
             e.printStackTrace();

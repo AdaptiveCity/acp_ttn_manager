@@ -35,8 +35,8 @@ def register_device(device_settings, app_id):
 
 @app.route('/device/', methods=['POST'])
 def register():
-    app_id = settings['DEFAULT_APPLICATION']
     content = request.json
+    app_id = content['ttnAppName']
     if content['access_token'] == settings['ACCESS_TOKEN']:
         device_settings = get_device_settings(content['qrdata'])
         response = register_device(device_settings, app_id)

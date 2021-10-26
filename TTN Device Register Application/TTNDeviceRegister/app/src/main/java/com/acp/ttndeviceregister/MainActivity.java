@@ -5,10 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnRegisterSingle, btnRegisterMultiple;
+    EditText ttnAppNameBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initViews() {
         btnRegisterSingle = findViewById(R.id.btnRegisterSingle);
         btnRegisterMultiple = findViewById(R.id.btnRegisterMultiple);
+        ttnAppNameBox = findViewById(R.id.editBoxAppName);
         btnRegisterSingle.setOnClickListener(this);
         btnRegisterMultiple.setOnClickListener(this);
     }
@@ -28,10 +31,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnRegisterSingle:
-                startActivity(new Intent(MainActivity.this, RegisterSingleDeviceActivity.class));
+                Intent singleRegisterIntent = new Intent(MainActivity.this, RegisterSingleDeviceActivity.class);
+                singleRegisterIntent.putExtra("ttnAppName",ttnAppNameBox.getText());
+                startActivity(singleRegisterIntent);
                 break;
             case R.id.btnRegisterMultiple:
-                startActivity(new Intent(MainActivity.this, RegisterMultipleDeviceActivity.class));
+                Intent multiRegisterIntent = new Intent(MainActivity.this, RegisterMultipleDeviceActivity.class);
+                multiRegisterIntent.putExtra("ttnAppName",ttnAppNameBox.getText());
+                startActivity(multiRegisterIntent);
                 break;
         }
 
