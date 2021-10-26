@@ -53,7 +53,7 @@ public class RegisterSingleDeviceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan_barcode);
         Bundle extras = getIntent().getExtras();
         if (extras != null){
-            ttnAppName = extras.getString("ttnAppName");
+            ttnAppName = extras.get("ttnAppName").toString();
         }
 
         initViews();
@@ -173,7 +173,7 @@ public class RegisterSingleDeviceActivity extends AppCompatActivity {
         AlertDialog.Builder confirmRegistration = new AlertDialog.Builder(RegisterSingleDeviceActivity.this);
 
         confirmRegistration.setTitle("Confirm Registration");
-        confirmRegistration.setMessage("Are you sure you want to register device "+ message + "on TTN Application "+ttnAppName);
+        confirmRegistration.setMessage("Are you sure you want to register device "+ message + " on TTN Application "+ttnAppName);
 
         confirmRegistration.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {

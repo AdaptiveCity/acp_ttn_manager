@@ -52,7 +52,7 @@ public class RegisterMultipleDeviceActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
-            ttnAppName = extras.getString("ttnAppName");
+            ttnAppName = extras.get("ttnAppName").toString();
         }
 
         initViews();
