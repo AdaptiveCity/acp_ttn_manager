@@ -52,7 +52,7 @@ def home():
 settings = load_settings()
 settings['host'] = 'localhost'
 settings['port'] = 5015
-device_keys = {'ERSCO2' : 'elsys-co2', 'ERSEye' : 'elsys-eye', 'EMS' : 'elsys-ems'}
+device_keys = {'ERSCO2' : 'elsys-co2', 'ERSEye' : 'elsys-eye', 'EMS' : 'elsys-ems', 'ERS' : 'elsys-ers', 'ERSSound' : 'elsys-snd', 'ERSDesk' : 'elsys-dsk'}
 
 if __name__ == '__main__':
     app.run( host=settings["host"],
